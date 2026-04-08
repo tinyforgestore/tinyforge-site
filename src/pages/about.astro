@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="About — TinyForge"
+  description="TinyForge is an independent software studio building small, focused desktop utilities for everyday use."
+>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="wordmark" aria-label="TinyForge home">
+        <img src="/logo.png" alt="TinyForge logo" />
+        <span class="wordmark-text">TinyForge</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="site-nav">
+          <li><a href="/about" class="active">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="about-section">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-intro">
+          <span class="about-eyebrow">About</span>
+          <h1 class="about-heading">TinyForge</h1>
+        </div>
+
+        <div class="about-body">
+          <p>
+            TinyForge is an independent software studio focused on building small, precise desktop utilities. Every tool we ship solves a real problem — nothing more, nothing less.
+          </p>
+          <p>
+            We believe software should be straightforward to own. No subscriptions. No accounts required. No data sent to the cloud. You buy it, you keep it, it runs on your machine.
+          </p>
+          <p>
+            Our tools are built with Tauri, Rust, and React — fast, native, and lightweight by design.
+          </p>
+        </div>
+
+        <div class="about-meta">
+          <div class="meta-item">
+            <span class="meta-label">Contact</span>
+            <a href="mailto:hello@tinyforge.store" class="meta-value accent-link">hello@tinyforge.store</a>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Stack</span>
+            <span class="meta-value">Tauri · Rust · React</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 TinyForge</span>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href="mailto:hello@tinyforge.store">hello@tinyforge.store</a>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .about-section {
+    flex: 1;
+    padding-block: clamp(3.5rem, 9vw, 7rem);
+  }
+
+  .about-inner {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .about-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .about-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .about-heading {
+    font-family: var(--font-mono);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--color-text);
+  }
+
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-body p {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .meta-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+    min-width: 4.5rem;
+    flex-shrink: 0;
+  }
+
+  .meta-value {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.01em;
+  }
+
+  .accent-link {
+    color: var(--color-accent);
+    transition: color 0.15s ease;
+  }
+
+  .accent-link:hover {
+    color: var(--color-accent-light);
+  }
+</style>
