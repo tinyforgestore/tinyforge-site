@@ -1,0 +1,168 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { useTranslations, CONTACT_EMAIL } from '../i18n/ui';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description: string;
+}
+
+const { lang, title, description } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Layout {title} {description} {lang}>
+  <header class="site-header">
+    <div class="container">
+      <a href={t('nav.home.href')} class="wordmark" aria-label="TinyForge home">
+        <img src="/logo.png" alt="TinyForge logo" width="24" height="24" />
+        <span class="wordmark-text">TinyForge</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="site-nav">
+          <li><a href={t('nav.about.href')} class="active">{t('nav.about')}</a></li>
+          <li><a href={t('nav.lang.href')} class="lang-toggle">{t('nav.lang')}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="about-section">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-intro">
+          <span class="about-eyebrow">{t('about.eyebrow')}</span>
+          <h1 class="about-heading">TinyForge</h1>
+        </div>
+
+        <div class="about-body">
+          <p>{t('about.body.1')}</p>
+          <p>{t('about.body.2')}</p>
+        </div>
+
+        <div class="about-meta">
+          <div class="meta-item">
+            <span class="meta-label">{t('about.meta.contact')}</span>
+            <a href={`mailto:${CONTACT_EMAIL}`} class="meta-value accent-link">{CONTACT_EMAIL}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>{t('footer.copyright')}</span>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .about-section {
+    flex: 1;
+    padding-block: clamp(3.5rem, 9vw, 7rem);
+  }
+
+  .about-inner {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .about-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .about-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .about-heading {
+    font-family: var(--font-mono);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--color-text);
+  }
+
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-body p {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .meta-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-dim);
+    min-width: 4.5rem;
+    flex-shrink: 0;
+  }
+
+  .meta-value {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.01em;
+  }
+
+  .accent-link {
+    color: var(--color-accent);
+    transition: color 0.15s ease;
+  }
+
+  .accent-link:hover {
+    color: var(--color-accent-light);
+  }
+
+  /* ─── Lang Toggle ───────────────────────────────────────── */
+  .lang-toggle {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+    transition: color 0.15s ease;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .lang-toggle:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-hover);
+  }
+</style>

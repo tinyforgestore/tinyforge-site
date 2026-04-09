@@ -22,11 +22,15 @@ export const ui = {
     'product.status.released': 'Released',
     'product.status.discontinued': 'Discontinued',
     'footer.copyright': '© 2026 TinyForge',
+    'about.eyebrow': 'About',
+    'about.body.1': 'TinyForge is an independent software studio focused on building small, precise desktop utilities. Every tool we ship solves a real problem — nothing more, nothing less.',
+    'about.body.2': 'We believe software should be straightforward to own. No subscriptions. No accounts required. No data sent to the cloud. You buy it, you keep it, it runs on your machine.',
+    'about.meta.contact': 'Contact',
   },
   ja: {
     'nav.home.href': '/ja/',
     'nav.about': 'について',
-    'nav.about.href': '/about',
+    'nav.about.href': '/ja/about',
     'nav.lang': 'English',
     'nav.lang.href': '/',
     'hero.eyebrow': '独立系ソフトウェアスタジオ',
@@ -40,6 +44,10 @@ export const ui = {
     'product.status.released': 'リリース済み',
     'product.status.discontinued': '提供終了',
     'footer.copyright': '© 2026 TinyForge',
+    'about.eyebrow': 'について',
+    'about.body.1': 'TinyForgeは、小さく、精密なデスクトップツールの開発に特化した独立系ソフトウェアスタジオです。私たちがリリースするツールは、現実の問題を解決します — それ以上でも、それ以下でもなく。',
+    'about.body.2': 'ソフトウェアは、シンプルに所有できるべきだと考えています。サブスクリプションなし。アカウント不要。クラウドへのデータ送信なし。購入したら、あなたのもの。あなたのマシンで動き続けます。',
+    'about.meta.contact': 'お問い合わせ',
   },
 } as const;
 
