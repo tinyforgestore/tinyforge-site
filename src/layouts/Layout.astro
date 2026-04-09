@@ -1,17 +1,21 @@
 ---
+import type { Locale } from '../i18n/ui';
+
 export interface Props {
   title: string;
   description?: string;
+  lang?: Locale;
 }
 
 const {
   title,
   description = 'TinyForge — Small, focused desktop utilities.',
+  lang = 'en',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,6 +48,8 @@ const {
     --color-accent:       #3d8fd1;
     --color-accent-dim:   #2a6da8;
     --color-accent-light: #5ba5df;
+    --color-success:     #5fd47e;
+    --color-success-dim: #2a6b42;
 
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
