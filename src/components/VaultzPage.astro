@@ -13,6 +13,7 @@ interface Props {
 const { lang, title, description, screenshots = [] } = Astro.props;
 const t = useTranslations(lang);
 
+const GITHUB_URL = 'https://github.com/tinyforgestore/vaultz';
 const BUY_URL = 'https://tinyforgestore.gumroad.com/l/vaultz';
 const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/vaultz/releases/download/v1.0.8/Vaultz_universal.dmg';
 const TRIAL_URL_WINDOWS = 'https://github.com/tinyforgestore/vaultz/releases/download/v1.0.8/Vaultz_1.0.8_x64_en-US.msi';
@@ -153,6 +154,27 @@ const TRIAL_URL_FALLBACK = 'https://github.com/tinyforgestore/vaultz/releases/ta
             <p class="why-label">{t('vaultz.why.4.label')}</p>
             <p class="why-body">{t('vaultz.why.4.body')}</p>
           </li>
+          <li class="why-card">
+            <div class="why-icon" aria-hidden="true">
+              <!-- Lock icon -->
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="9" width="12" height="9" rx="1.5"/>
+                <path d="M7 9V6a3 3 0 016 0v3"/>
+              </svg>
+            </div>
+            <p class="why-label">{t('vaultz.why.5.label')}</p>
+            <p class="why-body">{t('vaultz.why.5.body')}</p>
+          </li>
+          <li class="why-card">
+            <div class="why-icon" aria-hidden="true">
+              <!-- Code brackets icon -->
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 6L3 10l4 4M13 6l4 4-4 4"/>
+              </svg>
+            </div>
+            <p class="why-label">{t('vaultz.why.6.label')}</p>
+            <p class="why-body">{t('vaultz.why.6.body')}</p>
+          </li>
         </ul>
       </div>
     </section>
@@ -173,6 +195,10 @@ const TRIAL_URL_FALLBACK = 'https://github.com/tinyforgestore/vaultz/releases/ta
           <details class="faq-item">
             <summary class="faq-question">{t('vaultz.faq.3.q')}</summary>
             <p class="faq-answer">{t('vaultz.faq.3.a')}</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">{t('vaultz.faq.4.q')}</summary>
+            <p class="faq-answer">{t('vaultz.faq.4.a.before')}<a href={GITHUB_URL} class="platform-link" target="_blank" rel="noopener noreferrer">GitHub</a>{t('vaultz.faq.4.a.after')}</p>
           </details>
         </div>
       </div>
