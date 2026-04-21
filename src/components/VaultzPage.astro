@@ -583,7 +583,7 @@ const TRIAL_URL_FALLBACK = 'https://github.com/tinyforgestore/vaultz/releases/ta
     var isMac = /Macintosh|Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua);
     var isWindows = /Windows NT/.test(ua);
     var isLinux = /Linux/.test(ua) && !/Android/.test(ua);
-    var os = isMac ? 'mac' : isWindows ? 'windows' : isLinux ? 'linux' : 'fallback';
+    var os = isMac ? 'mac' : isLinux ? 'linux' : 'fallback';
 
     if (os === 'fallback') return;
 

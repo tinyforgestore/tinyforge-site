@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { useTranslations, CONTACT_EMAIL, X_URL, X_HANDLE } from '../i18n/ui';
-import type { Locale, ProductStatusKey } from '../i18n/ui';
+import type { Locale } from '../i18n/ui';
 import type { Product } from '../types/product';
 import productsData from '../data/products.json';
 
@@ -62,8 +62,6 @@ const products = productsData as Product[];
           <ul class="product-grid">
             {products.map((product) => {
               const copy = product.i18n[lang] ?? product.i18n['en'];
-              const statusKey: ProductStatusKey = `product.status.${product.status}`;
-              const statusLabel = t(statusKey);
               const productName = copy?.name ?? product.id;
               return (
                 <li class="product-card">
@@ -73,7 +71,6 @@ const products = productsData as Product[];
                   <div class="product-card-body">
                     <div class="product-card-header">
                       <span class="product-name">{productName}</span>
-                      <span class={`product-status product-status--${product.status}`}>{statusLabel}</span>
                     </div>
                     {copy?.tagline && <p class="product-tagline">{copy.tagline}</p>}
                     <div class="product-meta">
@@ -212,7 +209,7 @@ const products = productsData as Product[];
   .product-grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
@@ -232,9 +229,9 @@ const products = productsData as Product[];
   }
 
   .product-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: var(--radius);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
   }
 
   .product-card-body {
@@ -256,32 +253,6 @@ const products = productsData as Product[];
     font-size: 0.9375rem;
     font-weight: 600;
     color: var(--color-text);
-  }
-
-  .product-status {
-    font-family: var(--font-mono);
-    font-size: 0.625rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.2rem 0.5rem;
-    border-radius: var(--radius);
-    border: 1px solid;
-    white-space: nowrap;
-  }
-
-  .product-status--coming_soon {
-    color: var(--color-accent);
-    border-color: var(--color-accent-dim);
-  }
-
-  .product-status--released {
-    color: var(--color-success);
-    border-color: var(--color-success-dim);
-  }
-
-  .product-status--discontinued {
-    color: var(--color-text-muted);
-    border-color: var(--color-border);
   }
 
   .product-tagline {
@@ -311,6 +282,10 @@ const products = productsData as Product[];
   @media (max-width: 600px) {
     .hero-inner {
       gap: 1.25rem;
+    }
+
+    .product-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

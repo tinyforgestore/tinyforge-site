@@ -648,7 +648,7 @@ const TRIAL_URL_FALLBACK = 'https://github.com/tinyforgestore/kurippa/releases/t
     var ua = navigator.userAgent;
     var isMac = /Macintosh|Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua);
     var isWindows = /Windows NT/.test(ua);
-    var os = isMac ? 'mac' : isWindows ? 'windows' : 'other';
+    var os = isMac ? 'mac' : 'other';
 
     if (os === 'other') return;
 

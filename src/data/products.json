@@ -5,7 +5,7 @@
     "platforms": ["mac", "windows"],
     "price": { "amount": 12, "currency": "USD" },
     "url": "/products/vaultz",
-    "icon": null,
+    "icon": "/icons/vaultz.png",
     "screenshots": [
       "/screenshots/vaultz/setup.png",
       "/screenshots/vaultz/vault.png",
@@ -31,7 +31,7 @@
     "platforms": ["mac", "windows"],
     "price": { "amount": 15, "currency": "USD" },
     "url": "/products/kurippa",
-    "icon": null,
+    "icon": "/icons/kurippa.png",
     "screenshots": [
       "/screenshots/kurippa/1-clean.png",
       "/screenshots/kurippa/2-clean.png",
