@@ -13,7 +13,9 @@ const { lang, title, description } = Astro.props;
 const t = useTranslations(lang);
 
 const BUY_URL = 'https://tinyforgestore.lemonsqueezy.com/checkout/buy/c4c7e746-ca85-492d-a4b9-cad7e749279f';
-const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/kurippa/releases/download/v1.0.1/Kurippa_universal.dmg';
+const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/kurippa/releases/download/v1.0.2/Kurippa_universal.dmg';
+const TRIAL_URL_WINDOWS = 'https://github.com/tinyforgestore/kurippa/releases/download/v1.0.2/kurippa_1.0.2_x64_en-US.msi';
+const TRIAL_URL_FALLBACK = 'https://github.com/tinyforgestore/kurippa/releases/tag/v1.0.2';
 ---
 
 <Layout {title} {description} {lang}>
@@ -39,17 +41,25 @@ const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/kurippa/releases/downlo
           <p class="hero-subheadline">{t('kurippa.hero.subheadline')}</p>
           <div class="hero-actions">
             <a
-              href={TRIAL_URL_MAC}
+              href={TRIAL_URL_FALLBACK}
               class="btn btn-primary"
               data-download-btn
               data-label-mac={t('kurippa.download.mac')}
+              data-label-windows={t('kurippa.download.windows')}
               data-label-fallback={t('kurippa.hero.cta.trial')}
             >{t('kurippa.hero.cta.trial')}</a>
             <a href={BUY_URL} class="btn btn-secondary">{t('kurippa.hero.cta.buy')}</a>
           </div>
           <div class="platform-note-group">
-            <p class="platform-note" data-os-note="mac" hidden>{t('kurippa.download.note.mac')}</p>
-            <p class="platform-note" data-os-note="other">{t('kurippa.download.note.other')}</p>
+            <p class="platform-note" data-os-note="mac" hidden>
+              Also available for <a href={TRIAL_URL_WINDOWS} class="platform-link">Windows</a>
+            </p>
+            <p class="platform-note" data-os-note="windows" hidden>
+              Also available for <a href={TRIAL_URL_MAC} class="platform-link">macOS</a>
+            </p>
+            <p class="platform-note" data-os-note="other">
+              Available for <a href={TRIAL_URL_MAC} class="platform-link">macOS</a> and <a href={TRIAL_URL_WINDOWS} class="platform-link">Windows</a>
+            </p>
           </div>
         </div>
       </div>
@@ -229,17 +239,25 @@ const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/kurippa/releases/downlo
       <h2 class="closing-cta-heading">{t('kurippa.cta.heading')}</h2>
       <div class="hero-actions">
         <a
-          href={TRIAL_URL_MAC}
+          href={TRIAL_URL_FALLBACK}
           class="btn btn-primary"
           data-download-btn
           data-label-mac={t('kurippa.download.mac')}
+          data-label-windows={t('kurippa.download.windows')}
           data-label-fallback={t('kurippa.hero.cta.trial')}
         >{t('kurippa.hero.cta.trial')}</a>
         <a href={BUY_URL} class="btn btn-secondary">{t('kurippa.hero.cta.buy')}</a>
       </div>
       <div class="platform-note-group">
-        <p class="platform-note" data-os-note="mac" hidden>{t('kurippa.download.note.mac')}</p>
-        <p class="platform-note" data-os-note="other">{t('kurippa.download.note.other')}</p>
+        <p class="platform-note" data-os-note="mac" hidden>
+          Also available for <a href={TRIAL_URL_WINDOWS} class="platform-link">Windows</a>
+        </p>
+        <p class="platform-note" data-os-note="windows" hidden>
+          Also available for <a href={TRIAL_URL_MAC} class="platform-link">macOS</a>
+        </p>
+        <p class="platform-note" data-os-note="other">
+          Available for <a href={TRIAL_URL_MAC} class="platform-link">macOS</a> and <a href={TRIAL_URL_WINDOWS} class="platform-link">Windows</a>
+        </p>
       </div>
     </div>
   </section>
@@ -301,6 +319,17 @@ const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/kurippa/releases/downlo
     font-size: 0.8125rem;
     color: var(--color-text-muted);
     line-height: 1.5;
+  }
+
+  .platform-link {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+
+  .platform-link:hover {
+    color: var(--color-text);
   }
 
   .heroshot-section {
@@ -608,23 +637,31 @@ const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/kurippa/releases/downlo
 
 <script define:vars={{
   labelMac: t('kurippa.download.mac'),
+  labelWindows: t('kurippa.download.windows'),
   labelFallback: t('kurippa.hero.cta.trial'),
   trialUrlMac: TRIAL_URL_MAC,
+  trialUrlWindows: TRIAL_URL_WINDOWS,
 }}>
   (function () {
     var ua = navigator.userAgent;
     var isMac = /Macintosh|Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua);
-    if (!isMac) return;
+    var isWindows = /Windows NT/.test(ua);
+    var os = isMac ? 'mac' : isWindows ? 'windows' : 'other';
+
+    if (os === 'other') return;
+
+    var labels = { mac: labelMac, windows: labelWindows };
+    var hrefs = { mac: trialUrlMac, windows: trialUrlWindows };
 
     document.querySelectorAll('[data-download-btn]').forEach(function (btn) {
-      btn.textContent = labelMac;
-      btn.href = trialUrlMac;
+      btn.textContent = labels[os];
+      btn.href = hrefs[os];
     });
 
     document.querySelectorAll('[data-os-note="other"]').forEach(function (el) {
       el.hidden = true;
     });
-    document.querySelectorAll('[data-os-note="mac"]').forEach(function (el) {
+    document.querySelectorAll('[data-os-note="' + os + '"]').forEach(function (el) {
       el.hidden = false;
     });
   })();
