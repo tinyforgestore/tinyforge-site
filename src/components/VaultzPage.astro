@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { useTranslations, CONTACT_EMAIL } from '../i18n/ui';
+import { useTranslations, CONTACT_EMAIL, X_URL, X_HANDLE } from '../i18n/ui';
 import type { Locale } from '../i18n/ui';
 
 interface Props {
@@ -244,6 +244,8 @@ const TRIAL_URL_FALLBACK = 'https://github.com/tinyforgestore/vaultz/releases/ta
       <span>{t('vaultz.footer.brand')}</span>
       <span class="footer-sep" aria-hidden="true">&middot;</span>
       <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href={X_URL} target="_blank" rel="noopener noreferrer">{X_HANDLE}</a>
     </div>
   </footer>
 </Layout>

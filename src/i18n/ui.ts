@@ -3,6 +3,8 @@ export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'en';
 
 export const CONTACT_EMAIL = 'hello@tinyforge.store';
+export const X_URL = 'https://x.com/tinyforge_store';
+export const X_HANDLE = '@tinyforge_store';
 
 export const ui = {
   en: {
@@ -26,6 +28,7 @@ export const ui = {
     'about.body.1': 'TinyForge is an independent software studio focused on building small, precise desktop utilities. Every tool we ship solves a real problem — nothing more, nothing less.',
     'about.body.2': 'We believe software should be straightforward to own. No subscriptions. No accounts required. No data sent to the cloud. You buy it, you keep it, it runs on your machine.',
     'about.meta.contact': 'Contact',
+    'about.meta.follow': 'Follow',
     'vaultz.nav.lang.href': '/ja/products/vaultz',
     'vaultz.hero.headline': "A password manager that doesn't phone home.",
     'vaultz.hero.subheadline': 'Local-first, one-time price. Your vault stays on your device — always offline, always yours.',
@@ -118,6 +121,7 @@ export const ui = {
     'about.body.1': 'TinyForgeは、小さく、精密なデスクトップツールの開発に特化した独立系ソフトウェアスタジオです。私たちがリリースするツールは、現実の問題を解決します — それ以上でも、それ以下でもなく。',
     'about.body.2': 'ソフトウェアは、シンプルに所有できるべきだと考えています。サブスクリプションなし。アカウント不要。クラウドへのデータ送信なし。購入したら、あなたのもの。あなたのマシンで動き続けます。',
     'about.meta.contact': 'お問い合わせ',
+    'about.meta.follow': 'フォロー',
     'vaultz.nav.lang.href': '/products/vaultz',
     'vaultz.hero.headline': '外部に繋がらないパスワードマネージャー。',
     'vaultz.hero.subheadline': 'ローカルファースト、一回限りの価格。あなたのボルトはデバイス上に — 常にオフライン、常にあなたのもの。',
