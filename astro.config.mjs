@@ -8,4 +8,7 @@ export default defineConfig({
     locales: ['en', 'ja'],
     routing: { prefixDefaultLocale: false },
   },
+  redirects: {
+    '/l/kurippa': 'https://tinyforgestore.lemonsqueezy.com/checkout/buy/c4c7e746-ca85-492d-a4b9-cad7e749279f',
+  },
 });

@@ -24,5 +24,31 @@
         "description": "macOSとWindows向けのローカルファーストパスワードマネージャー。一回限りの価格、クラウドなし、アカウント不要。"
       }
     }
+  },
+  {
+    "id": "kurippa",
+    "status": "released",
+    "platforms": ["mac", "windows"],
+    "price": { "amount": 15, "currency": "USD" },
+    "url": "/products/kurippa",
+    "icon": null,
+    "screenshots": [
+      "/screenshots/kurippa/1-clean.png",
+      "/screenshots/kurippa/2-clean.png",
+      "/screenshots/kurippa/3-clean.png"
+    ],
+    "releasedAt": "2026-04-21",
+    "i18n": {
+      "en": {
+        "name": "Kurippa",
+        "tagline": "Clipboard manager for power users.",
+        "description": "Clipboard manager for power users — history, folders, fuzzy search and smart paste."
+      },
+      "ja": {
+        "name": "Kurippa",
+        "tagline": "パワーユーザーのためのクリップボードマネージャー。",
+        "description": "パワーユーザー向けクリップボードマネージャー — 履歴、フォルダ、あいまい検索、スマートペースト。"
+      }
+    }
   }
 ]
