@@ -2,7 +2,7 @@
   {
     "id": "vaultz",
     "status": "released",
-    "platforms": ["mac", "windows"],
+    "platforms": ["mac"],
     "price": { "amount": 12, "currency": "USD" },
     "url": "/products/vaultz",
     "icon": "/icons/vaultz.png",
@@ -28,7 +28,7 @@
   {
     "id": "kurippa",
     "status": "released",
-    "platforms": ["mac", "windows"],
+    "platforms": ["mac"],
     "price": { "amount": 15, "currency": "USD" },
     "url": "/products/kurippa",
     "icon": "/icons/kurippa.png",
