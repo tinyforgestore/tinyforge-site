@@ -14,11 +14,11 @@ const { lang, title, description, screenshots = [] } = Astro.props;
 const t = useTranslations(lang);
 
 const GITHUB_URL = 'https://github.com/tinyforgestore/vaultz';
-const BUY_URL = 'https://tinyforgestore.gumroad.com/l/vaultz';
-const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/vaultz/releases/download/v1.0.9/Vaultz_universal.dmg';
-const TRIAL_URL_WINDOWS = 'https://github.com/tinyforgestore/vaultz/releases/download/v1.0.9/Vaultz_1.0.9_x64_en-US.msi';
-const TRIAL_URL_LINUX = 'https://github.com/tinyforgestore/vaultz/releases/download/v1.0.9/Vaultz_amd64.AppImage';
-const TRIAL_URL_FALLBACK = 'https://github.com/tinyforgestore/vaultz/releases/tag/v1.0.9';
+const BUY_URL = '/l/vaultz';
+const TRIAL_URL_MAC = 'https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_universal.dmg';
+const TRIAL_URL_WINDOWS = 'https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_1.0.9_x64_en-US.msi';
+const TRIAL_URL_LINUX = 'https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_amd64.AppImage';
+const TRIAL_URL_FALLBACK = 'https://github.com/tinyforgestore/vaultz/releases/latest';
 ---
 
 <Layout {title} {description} {lang}>

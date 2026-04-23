@@ -10,5 +10,6 @@ export default defineConfig({
   },
   redirects: {
     '/l/kurippa': 'https://tinyforgestore.lemonsqueezy.com/checkout/buy/c4c7e746-ca85-492d-a4b9-cad7e749279f',
+    '/l/vaultz': 'https://tinyforgestore.lemonsqueezy.com/checkout/buy/1a249b54-4356-4b66-98e2-5ad796096efa',
   },
 });
