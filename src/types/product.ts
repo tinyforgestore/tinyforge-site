@@ -17,5 +17,5 @@ export interface Product {
   icon: string | null;
   screenshots: string[] | null;
   releasedAt: string | null;
-  i18n: Partial<Record<Locale, ProductI18n>>;
+  i18n?: Partial<Record<Locale, ProductI18n>>;
 }

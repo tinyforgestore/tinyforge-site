@@ -1,0 +1,1084 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { CONTACT_EMAIL, X_URL, X_HANDLE } from '@/i18n/ui';
+import type { Locale } from '@/i18n/ui';
+import { Archive, Search, Scissors, Pipette, QrCode, Zap, WifiOff, Tag, Database, Monitor, ShieldCheck, Code2 } from 'lucide-astro';
+
+const ICONS: Record<string, any> = {
+  Archive, Search, Scissors, Pipette, QrCode, Zap,
+  WifiOff, Tag, Database, Monitor, ShieldCheck, Code2,
+};
+
+interface LocalisedString {
+  en: string;
+  ja?: string;
+}
+
+interface HeroShot {
+  src: string;
+  alt: LocalisedString;
+}
+
+interface FeatureSection {
+  id: string;
+  icon: string;
+  tag?: LocalisedString;
+  headline: LocalisedString;
+  body: LocalisedString;
+  bullets?: { en: string[]; ja?: string[] };
+  screenshot?: string;
+}
+
+interface SetupStep {
+  step: number;
+  title: LocalisedString;
+  body: LocalisedString;
+  note?: LocalisedString;
+}
+
+interface FaqItem {
+  q: LocalisedString;
+  a: LocalisedString;
+  aHref?: string;
+}
+
+interface Product {
+  id: string;
+  status: string;
+  releasedAt?: string;
+  icon?: string;
+  url: string;
+  platforms: string[];
+  primaryPlatform?: string;
+  price?: {
+    amount: number;
+    currency: string;
+    model?: string;
+    note?: LocalisedString;
+  };
+  links?: {
+    download?: Record<string, string>;
+    buy?: string;
+    fallback?: string;
+    github?: string;
+  };
+  meta?: {
+    title?: LocalisedString;
+    description?: LocalisedString;
+  };
+  hero?: {
+    headline?: LocalisedString;
+    subhead?: LocalisedString;
+    cta?: {
+      trial?: LocalisedString;
+      buy?: LocalisedString;
+    };
+  };
+  showcase?: {
+    background?: string;
+    heroshots?: HeroShot[];
+    title?: LocalisedString;
+  };
+  featureSections?: FeatureSection[];
+  setup?: {
+    platforms?: Record<string, SetupStep[]>;
+  };
+  faq?: FaqItem[];
+  closingCta?: {
+    heading?: LocalisedString;
+  };
+  footerBrand?: string;
+}
+
+interface Props {
+  product: Product;
+  lang: Locale;
+}
+
+const { product, lang } = Astro.props;
+
+// Localisation helper: pick lang value, fall back to en, fall back to raw string
+function l(field: LocalisedString | string | undefined): string {
+  if (!field) return '';
+  if (typeof field === 'string') return field;
+  return field[lang] ?? field.en ?? '';
+}
+
+const homeHref = lang === 'ja' ? '/ja/' : '/';
+const navLang = lang === 'en' ? '🇯🇵' : '🇺🇸';
+const langToggleHref = lang === 'en'
+  ? `/ja${product.url}`
+  : product.url;
+
+const title = l(product.meta?.title) || product.id;
+const description = l(product.meta?.description) || '';
+
+const primaryPlatform = product.primaryPlatform ?? product.platforms[0] ?? 'macos';
+const downloadUrls = product.links?.download ?? {};
+const fallbackUrl = product.links?.fallback ?? '#';
+const buyUrl = product.links?.buy ?? '#';
+const githubUrl = product.links?.github;
+
+const trialLabel = l(product.hero?.cta?.trial) || 'Download free trial →';
+const buyLabel = l(product.hero?.cta?.buy) || 'Buy';
+
+const hasMacos = product.platforms.includes('macos');
+const hasWindows = product.platforms.includes('windows');
+const hasLinux = product.platforms.includes('linux');
+
+const macUrl = downloadUrls.macos ?? fallbackUrl;
+const windowsUrl = downloadUrls.windows ?? fallbackUrl;
+const linuxUrl = downloadUrls.linux ?? fallbackUrl;
+
+const downloadMacLabel = lang === 'ja' ? 'macOS版をダウンロード →' : 'Download for macOS →';
+const downloadWindowsLabel = lang === 'ja' ? 'Windows版をダウンロード →' : 'Download for Windows →';
+const downloadLinuxLabel = lang === 'ja' ? 'Linux版をダウンロード →' : 'Download for Linux →';
+
+const footerBrand = product.footerBrand ?? `${product.id} by TinyForge`;
+
+// Icon registry — Heroicons v2 outline
+
+// Showcase: determine dark vs light context for caption colour
+const showcaseBg = product.showcase?.background ?? '#131313';
+const showcaseIsDark = showcaseBg === '#131313' || showcaseBg.startsWith('#0') || showcaseBg.startsWith('#1');
+---
+
+<Layout title={title} description={description} lang={lang}>
+  <!-- ── Header ───────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="container">
+      <a href={homeHref} class="wordmark" aria-label="TinyForge home">
+        <img src="/logo.png" alt="TinyForge logo" width="24" height="24" />
+        <span class="wordmark-text">TinyForge</span>
+      </a>
+      <nav aria-label="Language">
+        <ul class="site-nav">
+          <li><a href={langToggleHref} class="lang-toggle">{navLang}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── Hero ─────────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <h1 class="hero-headline">{l(product.hero?.headline)}</h1>
+          <p class="hero-subheadline">{l(product.hero?.subhead)}</p>
+          <div class="hero-actions">
+            <a
+              href={fallbackUrl}
+              class="btn btn-primary"
+              data-download-btn
+              data-label-macos={downloadMacLabel}
+              data-label-windows={downloadWindowsLabel}
+              data-label-linux={downloadLinuxLabel}
+              data-label-fallback={trialLabel}
+            >{trialLabel}</a>
+            <a href={buyUrl} class="btn btn-secondary">{buyLabel}</a>
+          </div>
+          <div class="platform-note-group">
+            {hasMacos && hasWindows && hasLinux && (
+              <>
+                <p class="platform-note" data-os-note="macos" hidden>
+                  {lang === 'ja' ? '' : 'Also available for '}
+                  <a href={windowsUrl} class="platform-link">Windows</a>
+                  {lang === 'ja' ? 'と' : ', '}
+                  <a href={linuxUrl} class="platform-link">Linux</a>
+                  {lang === 'ja' ? 'でも利用可能' : ''}
+                </p>
+                <p class="platform-note" data-os-note="windows" hidden>
+                  {lang === 'ja' ? '' : 'Also available for '}
+                  <a href={macUrl} class="platform-link">macOS</a>
+                  {lang === 'ja' ? 'と' : ', '}
+                  <a href={linuxUrl} class="platform-link">Linux</a>
+                  {lang === 'ja' ? 'でも利用可能' : ''}
+                </p>
+                <p class="platform-note" data-os-note="linux" hidden>
+                  {lang === 'ja' ? '' : 'Also available for '}
+                  <a href={macUrl} class="platform-link">macOS</a>
+                  {lang === 'ja' ? 'と' : ' and '}
+                  <a href={windowsUrl} class="platform-link">Windows</a>
+                  {lang === 'ja' ? 'でも利用可能' : ''}
+                </p>
+                <p class="platform-note" data-os-note="fallback">
+                  {lang === 'ja' ? '' : 'Available for '}
+                  <a href={macUrl} class="platform-link">macOS</a>
+                  {lang === 'ja' ? 'と' : ', '}
+                  <a href={windowsUrl} class="platform-link">Windows</a>
+                  {lang === 'ja' ? 'と' : ' and '}
+                  <a href={linuxUrl} class="platform-link">Linux</a>
+                  {lang === 'ja' ? 'で利用可能' : ''}
+                </p>
+              </>
+            )}
+            {hasMacos && hasWindows && !hasLinux && (
+              <>
+                <p class="platform-note" data-os-note="macos" hidden>
+                  {lang === 'ja' ? '' : 'Also available for '}
+                  <a href={windowsUrl} class="platform-link">Windows</a>
+                  {lang === 'ja' ? 'でも利用可能' : ''}
+                </p>
+                <p class="platform-note" data-os-note="windows" hidden>
+                  {lang === 'ja' ? '' : 'Also available for '}
+                  <a href={macUrl} class="platform-link">macOS</a>
+                  {lang === 'ja' ? 'でも利用可能' : ''}
+                </p>
+                <p class="platform-note" data-os-note="other">
+                  {lang === 'ja' ? '' : 'Available for '}
+                  <a href={macUrl} class="platform-link">macOS</a>
+                  {lang === 'ja' ? 'と' : ' and '}
+                  <a href={windowsUrl} class="platform-link">Windows</a>
+                  {lang === 'ja' ? 'で利用可能' : ''}
+                </p>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Showcase ──────────────────────────────────────────── -->
+    {product.showcase && product.showcase.heroshots && product.showcase.heroshots.length > 0 && (
+      <section
+        class={`heroshot-section${showcaseIsDark ? ' heroshot-section--dark' : ' heroshot-section--light'}`}
+        style={`background: ${showcaseBg};`}
+      >
+        <div class="container">
+          {product.showcase.title && (
+            <h2 class="heroshot-section-title">{l(product.showcase.title)}</h2>
+          )}
+          <div class="heroshot-strip">
+            {product.showcase.heroshots.map((shot, i) => (
+              <div class={`heroshot-item ${i === 1 ? 'heroshot-item--center' : 'heroshot-item--side'}`}>
+                <div class="heroshot-frame">
+                  <img src={shot.src} alt={l(shot.alt)} loading="lazy" />
+                </div>
+                <p class="heroshot-caption">{l(shot.alt)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- ── Feature Sections ──────────────────────────────────── -->
+    {product.featureSections && product.featureSections.map((section, index) => (
+      <section class="feature-section">
+        <div class="container">
+          <div class={`feature-inner${index % 2 !== 0 ? ' feature-inner--reverse' : ''}`}>
+            {section.screenshot && (
+              <div class="feature-screenshot">
+                <img src={section.screenshot} alt={l(section.headline)} loading="lazy" />
+              </div>
+            )}
+            <div class="feature-text">
+              <div class="feature-icon-headline">
+                {section.icon && ICONS[section.icon] && (() => {
+                  const Icon = ICONS[section.icon];
+                  return <span class="feature-icon"><Icon size={20} stroke-width={1.5} aria-hidden="true" /></span>;
+                })()}
+                {section.tag && (
+                  <span class="feature-eyebrow">{l(section.tag)}</span>
+                )}
+              </div>
+              <h2 class="feature-headline">{l(section.headline)}</h2>
+              <p class="feature-body">{l(section.body)}</p>
+              {section.bullets && (
+                <ul class="feature-bullets">
+                  {(section.bullets[lang] ?? section.bullets.en ?? []).map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <!-- ── Setup ────────────────────────────────────────────── -->
+    {product.setup && product.setup.platforms && (
+      <section class="setup-section">
+        <div class="container">
+          <h2 class="section-title">{lang === 'ja' ? 'セットアップ' : 'Setup'}</h2>
+          <div class="setup-tabs">
+            {(() => {
+              const setupPlatforms = Object.keys(product.setup.platforms!).filter(
+                (p) => product.platforms.includes(p)
+              );
+              return (
+                <>
+                  <div class="tab-bar" role="tablist">
+                    {setupPlatforms.map((platform, idx) => (
+                      <button
+                        class={`tab-btn${idx === 0 ? ' tab-btn--active' : ''}`}
+                        data-tab={platform}
+                        role="tab"
+                        aria-selected={idx === 0 ? 'true' : 'false'}
+                      >
+                        {platform === 'macos' ? 'macOS' : platform === 'windows' ? 'Windows' : platform}
+                      </button>
+                    ))}
+                  </div>
+                  {setupPlatforms.map((platform, idx) => {
+                    const steps = product.setup!.platforms![platform] ?? [];
+                    return (
+                      <div class="tab-panel" data-panel={platform} hidden={idx !== 0}>
+                        {steps.length > 0 ? (
+                          <ol class="setup-steps">
+                            {steps.map((step) => (
+                              <li class="setup-step">
+                                <span class="setup-step-number">{String(step.step).padStart(2, '0')}</span>
+                                <div class="setup-step-content">
+                                  <p class="setup-step-title">{l(step.title)}</p>
+                                  <p class="setup-step-body" set:html={l(step.body)} />
+                                  {step.note && (
+                                    <ul class="setup-step-bullets">
+                                      {l(step.note).split('\n').filter(Boolean).map((line) => (
+                                        <li set:html={line} />
+                                      ))}
+                                    </ul>
+                                  )}
+                                </div>
+                              </li>
+                            ))}
+                          </ol>
+                        ) : (
+                          <p class="setup-coming-soon">
+                            {lang === 'ja' ? 'Windowsのセットアップガイドは近日公開。' : 'Windows setup guide coming soon.'}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </>
+              );
+            })()}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- ── FAQ ──────────────────────────────────────────────── -->
+    {product.faq && product.faq.length > 0 && (
+      <section class="faq-section">
+        <div class="container">
+          <h2 class="section-title">{lang === 'ja' ? 'よくある質問' : 'FAQ'}</h2>
+          <div class="faq-list">
+            {product.faq.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-question">{l(item.q)}</summary>
+                <p class="faq-answer">
+                  {l(item.a)}{item.aHref && <> <a href={item.aHref} class="platform-link" target="_blank" rel="noopener noreferrer">GitHub</a>.</>}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+  <!-- ── Closing CTA ──────────────────────────────────────── -->
+  <section class="closing-cta">
+    <div class="container">
+      {product.closingCta?.heading && (
+        <h2 class="closing-cta-heading">{l(product.closingCta.heading)}</h2>
+      )}
+      <div class="hero-actions">
+        <a
+          href={fallbackUrl}
+          class="btn btn-primary"
+          data-download-btn
+          data-label-macos={downloadMacLabel}
+          data-label-windows={downloadWindowsLabel}
+          data-label-linux={downloadLinuxLabel}
+          data-label-fallback={trialLabel}
+        >{trialLabel}</a>
+        <a href={buyUrl} class="btn btn-secondary">{buyLabel}</a>
+      </div>
+      <div class="platform-note-group">
+        {hasMacos && hasWindows && hasLinux && (
+          <>
+            <p class="platform-note" data-os-note="macos" hidden>
+              {lang === 'ja' ? '' : 'Also available for '}
+              <a href={windowsUrl} class="platform-link">Windows</a>
+              {lang === 'ja' ? 'と' : ', '}
+              <a href={linuxUrl} class="platform-link">Linux</a>
+              {lang === 'ja' ? 'でも利用可能' : ''}
+            </p>
+            <p class="platform-note" data-os-note="windows" hidden>
+              {lang === 'ja' ? '' : 'Also available for '}
+              <a href={macUrl} class="platform-link">macOS</a>
+              {lang === 'ja' ? 'と' : ', '}
+              <a href={linuxUrl} class="platform-link">Linux</a>
+              {lang === 'ja' ? 'でも利用可能' : ''}
+            </p>
+            <p class="platform-note" data-os-note="linux" hidden>
+              {lang === 'ja' ? '' : 'Also available for '}
+              <a href={macUrl} class="platform-link">macOS</a>
+              {lang === 'ja' ? 'と' : ' and '}
+              <a href={windowsUrl} class="platform-link">Windows</a>
+              {lang === 'ja' ? 'でも利用可能' : ''}
+            </p>
+            <p class="platform-note" data-os-note="fallback">
+              {lang === 'ja' ? '' : 'Available for '}
+              <a href={macUrl} class="platform-link">macOS</a>
+              {lang === 'ja' ? 'と' : ', '}
+              <a href={windowsUrl} class="platform-link">Windows</a>
+              {lang === 'ja' ? 'と' : ' and '}
+              <a href={linuxUrl} class="platform-link">Linux</a>
+              {lang === 'ja' ? 'で利用可能' : ''}
+            </p>
+          </>
+        )}
+        {hasMacos && hasWindows && !hasLinux && (
+          <>
+            <p class="platform-note" data-os-note="macos" hidden>
+              {lang === 'ja' ? '' : 'Also available for '}
+              <a href={windowsUrl} class="platform-link">Windows</a>
+              {lang === 'ja' ? 'でも利用可能' : ''}
+            </p>
+            <p class="platform-note" data-os-note="windows" hidden>
+              {lang === 'ja' ? '' : 'Also available for '}
+              <a href={macUrl} class="platform-link">macOS</a>
+              {lang === 'ja' ? 'でも利用可能' : ''}
+            </p>
+            <p class="platform-note" data-os-note="other">
+              {lang === 'ja' ? '' : 'Available for '}
+              <a href={macUrl} class="platform-link">macOS</a>
+              {lang === 'ja' ? 'と' : ' and '}
+              <a href={windowsUrl} class="platform-link">Windows</a>
+              {lang === 'ja' ? 'で利用可能' : ''}
+            </p>
+          </>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="container">
+      <span>{footerBrand}</span>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      <span class="footer-sep" aria-hidden="true">&middot;</span>
+      <a href={X_URL} target="_blank" rel="noopener noreferrer">{X_HANDLE}</a>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* ─── Hero ──────────────────────────────────────────────── */
+  .hero {
+    background-color: var(--color-bg-elevated);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: clamp(4rem, 10vw, 7rem);
+  }
+
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 640px;
+  }
+
+  .hero-headline {
+    font-family: var(--font-mono);
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--color-text);
+  }
+
+  .hero-subheadline {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    max-width: 520px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .platform-note-group {
+    margin-top: 0.25rem;
+  }
+
+  [data-os-note][hidden] {
+    display: none;
+  }
+
+  .platform-note {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .platform-link {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s ease;
+  }
+
+  .platform-link:hover {
+    color: var(--color-text);
+  }
+
+  /* ─── Showcase / Heroshot ───────────────────────────────── */
+  .heroshot-section {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    overflow: hidden;
+  }
+
+  .heroshot-section--light {
+    background:
+      radial-gradient(ellipse 80% 70% at 15% 15%, rgba(216, 208, 245, 0.55) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 60% at 85% 85%, rgba(55, 138, 221, 0.10) 0%, transparent 55%),
+      #EEEAF8;
+  }
+
+  .heroshot-section-title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .heroshot-strip {
+    display: grid;
+    grid-template-columns: 0.78fr 1fr 0.78fr;
+    align-items: center;
+    gap: 0;
+  }
+
+  .heroshot-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .heroshot-item--side:first-child {
+    transform: translateX(2rem);
+    z-index: 1;
+    position: relative;
+  }
+
+  .heroshot-item--side:last-child {
+    transform: translateX(-2rem);
+    z-index: 1;
+    position: relative;
+  }
+
+  .heroshot-item--center {
+    z-index: 2;
+    position: relative;
+  }
+
+  .heroshot-section--light .heroshot-frame {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(36, 18, 100, 0.22);
+  }
+
+  .heroshot-section--light .heroshot-item--side .heroshot-frame {
+    opacity: 0.85;
+    box-shadow: 0 8px 24px rgba(36, 18, 100, 0.18);
+  }
+
+  .heroshot-section--dark .heroshot-frame {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: var(--color-bg-card);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  }
+
+  .heroshot-section--dark .heroshot-item--side .heroshot-frame {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    opacity: 0.85;
+  }
+
+  .heroshot-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .heroshot-section--light .heroshot-caption {
+    font-family: var(--font-sans);
+    font-style: italic;
+    font-size: 0.8125rem;
+    color: rgba(34, 16, 85, 0.7);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .heroshot-section--dark .heroshot-caption {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  .heroshot-item--side .heroshot-caption {
+    opacity: 0.7;
+  }
+
+  /* ─── Feature Sections ──────────────────────────────────── */
+  .feature-section {
+    padding-block: 7.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .feature-inner {
+    display: flex;
+    gap: clamp(3rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .feature-inner--reverse {
+    flex-direction: row-reverse;
+  }
+
+  .feature-screenshot {
+    flex: 0 0 520px;
+    max-width: 520px;
+    aspect-ratio: 3 / 2;
+    border-radius: 10px;
+    overflow: hidden;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .feature-text {
+    flex: 1;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .feature-icon-headline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .feature-icon {
+    color: var(--color-accent);
+    display: flex;
+  }
+
+  .feature-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 400;
+  }
+
+  .feature-headline {
+    font-family: var(--font-mono);
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--color-text);
+  }
+
+  .feature-body {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .feature-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .feature-bullets li {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    padding-left: 1.125rem;
+    position: relative;
+  }
+
+  .feature-bullets li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* ─── Setup ─────────────────────────────────────────────── */
+  .setup-section {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2rem;
+  }
+
+  .tab-btn {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.625rem 1.25rem;
+    cursor: pointer;
+    margin-bottom: -1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .tab-btn:hover {
+    color: var(--color-text);
+  }
+
+  .tab-btn--active {
+    color: var(--color-text);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .setup-steps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .setup-step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .setup-step:last-child {
+    border-bottom: none;
+  }
+
+  .setup-step-number {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    padding-top: 0.125rem;
+    min-width: 1.75rem;
+  }
+
+  .setup-step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .setup-step-title {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .setup-step-body {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  :global(.setup-code) {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text);
+    background-color: var(--color-bg-elevated);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+    border: 1px solid var(--color-border);
+  }
+
+  .setup-step-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .setup-step-bullets li {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    padding-left: 1.125rem;
+    position: relative;
+  }
+
+  .setup-step-bullets li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .setup-coming-soon {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    padding: 2rem 0;
+  }
+
+  /* ─── FAQ ───────────────────────────────────────────────── */
+  .faq-section {
+    padding-block: clamp(3rem, 7vw, 5rem);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg-card);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.125rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    cursor: pointer;
+    list-style: none;
+    gap: 1rem;
+    transition: color 0.15s ease;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+  }
+
+  .faq-item[open] .faq-question::after {
+    content: '−';
+  }
+
+  .faq-question:hover {
+    color: var(--color-accent);
+  }
+
+  .faq-answer {
+    padding: 0 1.5rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── Closing CTA ───────────────────────────────────────── */
+  .closing-cta {
+    padding-block: clamp(3.5rem, 8vw, 6rem);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .closing-cta-heading {
+    font-family: var(--font-mono);
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    line-height: 1.3;
+    max-width: 520px;
+    margin-bottom: 1.75rem;
+  }
+
+  /* ─── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .feature-inner,
+    .feature-inner--reverse {
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .feature-screenshot {
+      flex: none;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .feature-text {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .heroshot-strip {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .heroshot-item--side:first-child,
+    .heroshot-item--side:last-child {
+      transform: none;
+      opacity: 1;
+    }
+
+    .heroshot-item--side .heroshot-frame {
+      opacity: 1;
+    }
+
+    .heroshot-item--side .heroshot-caption {
+      opacity: 1;
+    }
+
+    .feature-section {
+      padding-block: 4rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .closing-cta-heading {
+      font-size: 1.125rem;
+    }
+  }
+</style>
+
+<script define:vars={{
+  hasMacos,
+  hasWindows,
+  hasLinux,
+  macUrl,
+  windowsUrl,
+  linuxUrl,
+  downloadMacLabel,
+  downloadWindowsLabel,
+  downloadLinuxLabel,
+  trialLabel,
+}}>
+  (function () {
+    var ua = navigator.userAgent;
+    var isMac = /Macintosh|Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua);
+    var isWindows = /Windows NT/.test(ua);
+    var isLinux = /Linux/.test(ua) && !/Android/.test(ua);
+
+    var os = isMac ? 'macos' : isWindows ? 'windows' : isLinux ? 'linux' : 'other';
+
+    // If only mac+windows (no linux), treat linux as 'other'
+    if (os === 'linux' && !hasLinux) os = 'other';
+
+    var labels = { macos: downloadMacLabel, windows: downloadWindowsLabel, linux: downloadLinuxLabel };
+    var hrefs = { macos: macUrl, windows: windowsUrl, linux: linuxUrl };
+
+    if (os !== 'other' && os !== 'fallback') {
+      document.querySelectorAll('[data-download-btn]').forEach(function (btn) {
+        btn.textContent = labels[os];
+        btn.href = hrefs[os];
+      });
+
+      // Hide fallback/other notes, show platform-specific note
+      document.querySelectorAll('[data-os-note="other"],[data-os-note="fallback"]').forEach(function (el) {
+        el.hidden = true;
+      });
+      document.querySelectorAll('[data-os-note="' + os + '"]').forEach(function (el) {
+        el.hidden = false;
+      });
+    }
+  })();
+</script>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var tab = (btn as HTMLElement).dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(function (b) {
+        b.classList.remove('tab-btn--active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-panel').forEach(function (p) {
+        (p as HTMLElement).hidden = true;
+      });
+      btn.classList.add('tab-btn--active');
+      btn.setAttribute('aria-selected', 'true');
+      var panel = document.querySelector('[data-panel="' + tab + '"]') as HTMLElement | null;
+      if (panel) panel.hidden = false;
+    });
+  });
+</script>

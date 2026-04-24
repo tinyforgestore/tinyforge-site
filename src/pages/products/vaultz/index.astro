@@ -1,14 +1,6 @@
 ---
-import VaultzPage from '../../../components/VaultzPage.astro';
+import ProductPage from '../../../components/ProductPage.astro';
+import products from '../../../data/products.json';
+const product = products.find((p) => p.id === 'vaultz')!;
 ---
-
-<VaultzPage
-  lang="en"
-  title="Vaultz — A password manager that doesn't phone home"
-  description="Local-first password manager for macOS and Windows. One-time price, no cloud, no account required."
-  screenshots={[
-    '/screenshots/vaultz/setup.png',
-    '/screenshots/vaultz/vault.png',
-    '/screenshots/vaultz/settings.png',
-  ]}
-/>
+<ProductPage {product} lang="en" />

@@ -61,8 +61,14 @@ const products = productsData as Product[];
         ) : (
           <ul class="product-grid">
             {products.map((product) => {
-              const copy = product.i18n[lang] ?? product.i18n['en'];
-              const productName = copy?.name ?? product.id;
+              const p = product as any;
+              function lp(field: any): string {
+                if (!field) return '';
+                if (typeof field === 'string') return field;
+                return field[lang] ?? field['en'] ?? '';
+              }
+              const productName = lp(p.meta?.title)?.split('—')[0]?.trim() || product.id;
+              const tagline = lp(p.hero?.subhead) || lp(p.hero?.headline) || '';
               return (
                 <li class="product-card">
                   {product.icon && (
@@ -72,7 +78,7 @@ const products = productsData as Product[];
                     <div class="product-card-header">
                       <span class="product-name">{productName}</span>
                     </div>
-                    {copy?.tagline && <p class="product-tagline">{copy.tagline}</p>}
+                    {tagline && <p class="product-tagline">{tagline}</p>}
                     <div class="product-meta">
                       {product.platforms.length > 0 && (
                         <span class="product-platforms">{product.platforms.join(' · ')}</span>

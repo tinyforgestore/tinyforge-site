@@ -1,7 +1,15 @@
 import { defineConfig } from 'astro/config';
+import path from 'path';
 
 export default defineConfig({
   output: 'static',
+  vite: {
+    resolve: {
+      alias: {
+        '@': path.resolve('./src'),
+      },
+    },
+  },
   site: 'https://tinyforge.store',
   i18n: {
     defaultLocale: 'en',

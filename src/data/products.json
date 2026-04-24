@@ -1,54 +1,561 @@
 [
   {
-    "id": "vaultz",
-    "status": "released",
-    "platforms": ["mac"],
-    "price": { "amount": 12, "currency": "USD" },
-    "url": "/products/vaultz",
-    "icon": "/icons/vaultz.png",
-    "screenshots": [
-      "/screenshots/vaultz/setup.png",
-      "/screenshots/vaultz/vault.png",
-      "/screenshots/vaultz/settings.png"
-    ],
-    "releasedAt": "2026-04-11",
-    "i18n": {
-      "en": {
-        "name": "Vaultz",
-        "tagline": "A password manager that doesn't phone home.",
-        "description": "Local-first password manager for macOS and Windows. One-time price, no cloud, no account required."
-      },
-      "ja": {
-        "name": "Vaultz",
-        "tagline": "外部に繋がらないパスワードマネージャー。",
-        "description": "macOSとWindows向けのローカルファーストパスワードマネージャー。一回限りの価格、クラウドなし、アカウント不要。"
-      }
-    }
-  },
-  {
     "id": "kurippa",
     "status": "released",
-    "platforms": ["mac"],
-    "price": { "amount": 15, "currency": "USD" },
-    "url": "/products/kurippa",
-    "icon": "/icons/kurippa.png",
-    "screenshots": [
-      "/screenshots/kurippa/1-clean.png",
-      "/screenshots/kurippa/2-clean.png",
-      "/screenshots/kurippa/3-clean.png"
-    ],
     "releasedAt": "2026-04-21",
-    "i18n": {
-      "en": {
-        "name": "Kurippa",
-        "tagline": "Clipboard manager for power users.",
-        "description": "Clipboard manager for power users — history, folders, fuzzy search and smart paste."
-      },
-      "ja": {
-        "name": "Kurippa",
-        "tagline": "パワーユーザーのためのクリップボードマネージャー。",
-        "description": "パワーユーザー向けクリップボードマネージャー — 履歴、フォルダ、あいまい検索、スマートペースト。"
+    "icon": "/icons/kurippa.png",
+    "url": "/products/kurippa",
+    "platforms": ["macos", "windows"],
+    "primaryPlatform": "macos",
+    "price": {
+      "amount": 15,
+      "currency": "USD",
+      "model": "one_time",
+      "note": {
+        "en": "$15 is a one-time payment. You own it permanently, including all future updates.",
+        "ja": "$15の買い切り価格です。将来のアップデートを含め、永続的にご利用いただけます。"
       }
-    }
+    },
+    "links": {
+      "download": {
+        "macos": "https://github.com/tinyforgestore/kurippa/releases/latest/download/Kurippa_universal.dmg",
+        "windows": "https://github.com/tinyforgestore/kurippa/releases/latest/download/Kurippa_x64-setup.exe"
+      },
+      "buy": "/l/kurippa",
+      "fallback": "https://github.com/tinyforgestore/kurippa/releases/latest"
+    },
+    "meta": {
+      "title": {
+        "en": "Kurippa — Clipboard manager for power users",
+        "ja": "Kurippa — パワーユーザーのためのクリップボードマネージャー"
+      },
+      "description": {
+        "en": "Clipboard manager for power users — history, folders, fuzzy search and smart paste. One-time purchase for macOS and Windows.",
+        "ja": "パワーユーザー向けクリップボードマネージャー — 履歴、フォルダ、あいまい検索、スマートペースト。macOSとWindows対応。"
+      }
+    },
+    "hero": {
+      "headline": {
+        "en": "Clipboard manager for power users.",
+        "ja": "パワーユーザーのためのクリップボードマネージャー。"
+      },
+      "subhead": {
+        "en": "Full clipboard history, folders, fuzzy search and smart paste. A global hotkey summons it from any app — no mouse, no mode switching.",
+        "ja": "完全なクリップボード履歴、フォルダ、あいまい検索、スマートペースト。グローバルホットキーでどのアプリからでも呼び出せます。"
+      },
+      "cta": {
+        "trial": {
+          "en": "Download free trial →",
+          "ja": "無料トライアルをダウンロード →"
+        },
+        "buy": {
+          "en": "Buy Kurippa — $15",
+          "ja": "Kurippaを購入 — $15"
+        }
+      }
+    },
+    "showcase": {
+      "background": "#EEEAF8",
+      "heroshots": [
+        {
+          "src": "/screenshots/kurippa/3-clean.png",
+          "alt": {
+            "en": "Fuzzy search & URL preview",
+            "ja": "あいまい検索とURLプレビュー"
+          }
+        },
+        {
+          "src": "/screenshots/kurippa/1-clean.png",
+          "alt": {
+            "en": "Instant clipboard history",
+            "ja": "インスタントクリップボード履歴"
+          }
+        },
+        {
+          "src": "/screenshots/kurippa/2-clean.png",
+          "alt": {
+            "en": "Copy a colour. See it instantly.",
+            "ja": "色をコピーして、即座に確認。"
+          }
+        }
+      ]
+    },
+    "featureSections": [
+      {
+        "id": "history",
+        "icon": "Archive",
+        "tag": {
+          "en": "HISTORY & ORGANISATION",
+          "ja": "履歴と整理"
+        },
+        "headline": {
+          "en": "Everything you've copied, always within reach.",
+          "ja": "コピーしたすべてのもの、いつでも手の届くところに。"
+        },
+        "body": {
+          "en": "Kurippa stores your full clipboard history and keeps it organised. Pin what you reach for most. Group the rest into named folders. Access anything with a keyboard shortcut.",
+          "ja": "Kurippaはクリップボードの完全な履歴を保存し、整理します。よく使うものをピン留め。残りは名前付きフォルダーにグループ化。キーボードショートカットで何でもアクセス。"
+        },
+        "bullets": {
+          "en": [
+            "Pinned items float to the top — ⌘0 to open",
+            "Folders with ⌘1–⌘9 quick access",
+            "Mixed content — text, code, images, colours"
+          ],
+          "ja": [
+            "ピン留めアイテムはトップに表示 — ⌘0で開く",
+            "フォルダーは⌘1–⌘9でクイックアクセス",
+            "混合コンテンツ — テキスト、コード、画像、カラー"
+          ]
+        },
+        "screenshot": "/screenshots/kurippa/1-clean.png"
+      },
+      {
+        "id": "fuzzy-search",
+        "icon": "Search",
+        "tag": {
+          "en": "FUZZY SEARCH",
+          "ja": "あいまい検索"
+        },
+        "headline": {
+          "en": "Find anything. Type anything.",
+          "ja": "何でも見つかる。何でも入力できる。"
+        },
+        "body": {
+          "en": "Search across your entire clipboard history instantly. Type a fragment and Kurippa finds the match — across text, code, URLs and filenames. No need to remember exactly what you copied.",
+          "ja": "クリップボードの履歴全体を即座に検索。断片を入力するとKurippaがマッチを見つけます — テキスト、コード、URL、ファイル名を横断して。正確に何をコピーしたか覚えている必要はありません。"
+        },
+        "bullets": {
+          "en": [
+            "Fuzzy matching — partial queries work",
+            "Results update as you type",
+            "⌘1–⌘9 to paste any result without lifting your hands"
+          ],
+          "ja": [
+            "あいまいマッチング — 部分的なクエリでも動作",
+            "入力に合わせてリアルタイムで結果が更新",
+            "⌘1–⌘9で手を離さずに任意の結果をペースト"
+          ]
+        },
+        "screenshot": "/screenshots/kurippa/3-clean.png"
+      },
+      {
+        "id": "paste-as",
+        "icon": "Scissors",
+        "tag": {
+          "en": "PASTE AS",
+          "ja": "形式を指定してペースト"
+        },
+        "headline": {
+          "en": "Paste smarter, not harder.",
+          "ja": "より賢くペースト。"
+        },
+        "body": {
+          "en": "Every clipboard item can be pasted in the format you actually need — not just what you copied. Transform text on the way out without opening another tool.",
+          "ja": "クリップボードのアイテムはコピーしたものだけでなく、実際に必要な形式でペーストできます。別のツールを開かずにテキストを変換。"
+        },
+        "bullets": {
+          "en": [
+            "Plain text — strip all formatting",
+            "Wrapped in code block — for Markdown and chat tools",
+            "camelCase, snake_case, UPPERCASE, slug and more",
+            "Wrap with custom delimiters",
+            "Trim whitespace"
+          ],
+          "ja": [
+            "プレーンテキスト — すべての書式を削除",
+            "コードブロックで囲む — MarkdownやチャットツールのRuby",
+            "camelCase, snake_case, UPPERCASE, slugなど",
+            "カスタム区切り文字で囲む",
+            "空白のトリミング"
+          ]
+        },
+        "screenshot": "/screenshots/kurippa/6-clean.png"
+      },
+      {
+        "id": "colour-detection",
+        "icon": "Pipette",
+        "tag": {
+          "en": "COLOUR DETECTION",
+          "ja": "カラー検出"
+        },
+        "headline": {
+          "en": "Copy a colour. See it instantly.",
+          "ja": "カラーをコピー。即座にプレビュー。"
+        },
+        "body": {
+          "en": "Kurippa detects hex, RGB, HSL and Tailwind colour values and renders a live preview swatch — with all three format values shown. No more pasting a hex code into a colour picker just to see what it looks like.",
+          "ja": "KurippaはHex、RGB、HSL、Tailwindのカラー値を検出し、ライブプレビュースウォッチをレンダリングします — 3つのフォーマット値を表示。どんな色か確認するためだけにカラーピッカーにHexコードをペーストする必要はもうありません。"
+        },
+        "bullets": {
+          "en": [
+            "Detects #hex, rgb(), hsl(), and Tailwind classes",
+            "Shows HEX, RGB and HSL side by side",
+            "Inline colour dot in the list for every colour item"
+          ],
+          "ja": [
+            "#hex、rgb()、hsl()、Tailwindクラスを検出",
+            "HEX、RGB、HSLを並べて表示",
+            "リスト内のすべてのカラーアイテムにインラインカラードット"
+          ]
+        },
+        "screenshot": "/screenshots/kurippa/2-clean.png"
+      },
+      {
+        "id": "qr-decode",
+        "icon": "QrCode",
+        "tag": {
+          "en": "QR DECODE",
+          "ja": "QRデコード"
+        },
+        "headline": {
+          "en": "Scanned a QR code? Paste the URL, not the image.",
+          "ja": "QRコードをスキャンしましたか？画像ではなくURLをペースト。"
+        },
+        "body": {
+          "en": "Copy a QR code image from anywhere and Kurippa decodes it automatically. Paste As gives you the URL directly — no scanner app, no extra steps.",
+          "ja": "どこからでもQRコード画像をコピーすると、Kurippaが自動的にデコードします。Paste AsでURLを直接取得 — スキャナーアプリも余分な手順も不要。"
+        },
+        "bullets": {
+          "en": [
+            "Auto-detects QR codes in copied images",
+            "Paste as image or paste the decoded URL",
+            "Works with any QR code — URLs, text, Wi-Fi credentials"
+          ],
+          "ja": [
+            "コピーした画像内のQRコードを自動検出",
+            "画像としてペーストするか、デコードされたURLをペースト",
+            "あらゆるQRコードに対応 — URL、テキスト、Wi-Fi認証情報"
+          ]
+        },
+        "screenshot": "/screenshots/kurippa/4-clean.png"
+      },
+      {
+        "id": "keyboard",
+        "icon": "Zap",
+        "tag": {
+          "en": "BUILT FOR THE KEYBOARD",
+          "ja": "キーボード向け設計"
+        },
+        "headline": {
+          "en": "From hotkey to paste in under a second.",
+          "ja": "ホットキーから1秒以内にペースト。"
+        },
+        "body": {
+          "en": "Kurippa is designed to stay out of your way. One global hotkey summons it from any app. One key pastes. It goes back to the background automatically — no clicks, no mode switching.",
+          "ja": "Kurippaは邪魔にならないように設計されています。1つのグローバルホットキーでどのアプリからでも呼び出せます。1つのキーでペースト。自動的にバックグラウンドに戻ります — クリックも、モード切替も不要。"
+        },
+        "bullets": {
+          "en": [
+            "Global hotkey — customisable",
+            "⌘1–⌘9 instant paste from anywhere in the list",
+            "Pastes into the previously active window automatically",
+            "Sensitive items from password managers never recorded"
+          ],
+          "ja": [
+            "グローバルホットキー — カスタマイズ可能",
+            "⌘1–⌘9でリストのどこからでも即座にペースト",
+            "以前アクティブだったウィンドウに自動的にペースト",
+            "パスワードマネージャーのセンシティブなアイテムは記録されない"
+          ]
+        },
+        "screenshot": "/screenshots/kurippa/5-clean.png"
+      }
+    ],
+    "setup": {
+      "platforms": {
+        "macos": [
+          {
+            "step": 1,
+            "title": {
+              "en": "Open the app (Gatekeeper bypass)",
+              "ja": "アプリを開く（Gatekeeperのバイパス）"
+            },
+            "body": {
+              "en": "Right-click <code class=\"setup-code\">Kurippa.app</code> → Open → click Open in the dialog. macOS blocks unsigned apps by default; this is a one-time step.",
+              "ja": "<code class=\"setup-code\">Kurippa.app</code>を右クリック → 開く → ダイアログで「開く」をクリック。macOSはデフォルトで未署名アプリをブロックします。これは一度だけ必要な手順です。"
+            }
+          },
+          {
+            "step": 2,
+            "title": {
+              "en": "Grant permissions (guided on first launch)",
+              "ja": "権限を付与する（初回起動時にガイドあり）"
+            },
+            "body": {
+              "en": "Kurippa will walk you through Accessibility and Input Monitoring on first launch. To re-enable manually if needed:",
+              "ja": "Kurippaは初回起動時にアクセシビリティと入力モニタリングの設定をガイドします。必要に応じて手動で再有効化するには："
+            },
+            "note": {
+              "en": "System Preferences → Privacy &amp; Security → Accessibility → enable Kurippa\nSystem Preferences → Privacy &amp; Security → Input Monitoring → enable Kurippa",
+              "ja": "システム環境設定 → プライバシーとセキュリティ → アクセシビリティ → Kurippaを有効化\nシステム環境設定 → プライバシーとセキュリティ → 入力モニタリング → Kurippaを有効化"
+            }
+          },
+          {
+            "step": 3,
+            "title": {
+              "en": "Enable launch at login",
+              "ja": "ログイン時の起動を有効化"
+            },
+            "body": {
+              "en": "System Preferences → General → Login Items → add Kurippa.",
+              "ja": "システム環境設定 → 一般 → ログイン項目 → Kurippaを追加。"
+            }
+          }
+        ],
+        "windows": []
+      }
+    },
+    "faq": [
+      {
+        "q": {
+          "en": "Is this a subscription?",
+          "ja": "サブスクリプションですか？"
+        },
+        "a": {
+          "en": "No. $15 is a one-time payment. You own it permanently, including all future updates.",
+          "ja": "いいえ。$15は一回限りの支払いです。将来のすべてのアップデートを含め、永続的に所有できます。"
+        }
+      },
+      {
+        "q": {
+          "en": "Where is my clipboard data stored?",
+          "ja": "クリップボードのデータはどこに保存されますか？"
+        },
+        "a": {
+          "en": "On your device only. Kurippa never connects to the internet. Your clipboard history lives on your machine and nowhere else.",
+          "ja": "あなたのデバイス上にのみ保存されます。Kurippaはインターネットに接続しません。クリップボードの履歴はあなたのマシンにのみ存在します。"
+        }
+      },
+      {
+        "q": {
+          "en": "Does Kurippa run in the background all the time?",
+          "ja": "Kurippaは常にバックグラウンドで動作していますか？"
+        },
+        "a": {
+          "en": "Yes, it runs as a menu bar app with minimal footprint. It uses no noticeable CPU or memory when idle — just sits quietly until you need it.",
+          "ja": "はい、メニューバーアプリとして最小限のフットプリントで動作します。アイドル時はCPUやメモリへの影響はほぼなく、必要になるまで静かに待機しています。"
+        }
+      }
+    ],
+    "closingCta": {
+      "heading": {
+        "en": "Your clipboard, under control.",
+        "ja": "クリップボードを、あなたのコントロール下に。"
+      }
+    },
+    "footerBrand": "Kurippa by TinyForge"
+  },
+  {
+    "id": "vaultz",
+    "status": "released",
+    "releasedAt": "2026-04-11",
+    "icon": "/icons/vaultz.png",
+    "url": "/products/vaultz",
+    "platforms": ["macos", "windows", "linux"],
+    "primaryPlatform": "macos",
+    "price": {
+      "amount": 12,
+      "currency": "USD",
+      "model": "one_time",
+      "note": {
+        "en": "$12 is a one-time payment. You own it permanently, including all future updates to your purchased version.",
+        "ja": "$12は一回限りの支払いです。購入したバージョンへの将来のすべてのアップデートを含め、永続的に所有できます。"
+      }
+    },
+    "links": {
+      "download": {
+        "macos": "https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_universal.dmg",
+        "windows": "https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_1.0.9_x64_en-US.msi",
+        "linux": "https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_amd64.AppImage"
+      },
+      "buy": "/l/vaultz",
+      "fallback": "https://github.com/tinyforgestore/vaultz/releases/latest",
+      "github": "https://github.com/tinyforgestore/vaultz"
+    },
+    "meta": {
+      "title": {
+        "en": "Vaultz — A password manager that doesn't phone home",
+        "ja": "Vaultz — 外部に繋がらないパスワードマネージャー"
+      },
+      "description": {
+        "en": "Local-first password manager for macOS and Windows. One-time price, no cloud, no account required.",
+        "ja": "macOSとWindows向けのローカルファーストパスワードマネージャー。一回限りの価格、クラウドなし、アカウント不要。"
+      }
+    },
+    "hero": {
+      "headline": {
+        "en": "A password manager that doesn't phone home.",
+        "ja": "外部に繋がらないパスワードマネージャー。"
+      },
+      "subhead": {
+        "en": "Local-first, one-time price. Your vault stays on your device — always offline, always yours.",
+        "ja": "ローカルファースト、一回限りの価格。あなたのボルトはデバイス上に — 常にオフライン、常にあなたのもの。"
+      },
+      "cta": {
+        "trial": {
+          "en": "Download free trial →",
+          "ja": "無料トライアルをダウンロード →"
+        },
+        "buy": {
+          "en": "Buy Vaultz — $12",
+          "ja": "Vaultzを購入 — $12"
+        }
+      }
+    },
+    "showcase": {
+      "background": "#131313",
+      "heroshots": [
+        {
+          "src": "/screenshots/vaultz/setup.png",
+          "alt": {
+            "en": "Set up in seconds.",
+            "ja": "数秒でセットアップ。"
+          }
+        },
+        {
+          "src": "/screenshots/vaultz/vault.png",
+          "alt": {
+            "en": "Your vault, organized by folder.",
+            "ja": "フォルダーで整理された、あなたのボルト。"
+          }
+        },
+        {
+          "src": "/screenshots/vaultz/settings.png",
+          "alt": {
+            "en": "Simple, no-nonsense settings.",
+            "ja": "シンプルで余計なものを省いた設定。"
+          }
+        }
+      ],
+      "title": {
+        "en": "Simple by design.",
+        "ja": "シンプルを極めた。"
+      }
+    },
+    "featureSections": [
+      {
+        "id": "no-cloud",
+        "icon": "WifiOff",
+        "headline": {
+          "en": "No cloud, no account",
+          "ja": "クラウドなし、アカウントなし"
+        },
+        "body": {
+          "en": "Your passwords never leave your machine. No server, no breach risk, no account required.",
+          "ja": "パスワードはあなたのマシンを離れません。サーバーなし、侵害リスクなし、アカウント不要。"
+        },
+        "screenshot": "/screenshots/vaultz/features/no-account.png"
+      },
+      {
+        "id": "pricing",
+        "icon": "Tag",
+        "headline": {
+          "en": "One-time price",
+          "ja": "一回限りの価格"
+        },
+        "body": {
+          "en": "Pay $12 once. No subscription, no renewal, no price hike. Yours forever.",
+          "ja": "$12を一度お支払いください。サブスクリプション、更新、値上げなし。永遠にあなたのもの。"
+        },
+        "screenshot": "/screenshots/vaultz/features/pricing.png"
+      },
+      {
+        "id": "local-first",
+        "icon": "Database",
+        "headline": {
+          "en": "Local-first, always available",
+          "ja": "ローカルファースト、常時利用可能"
+        },
+        "body": {
+          "en": "Works offline, always. Your vault doesn't depend on someone else's uptime.",
+          "ja": "常にオフラインで動作します。あなたのボルトは他者のアップタイムに依存しません。"
+        },
+        "screenshot": "/screenshots/vaultz/features/local-first.png"
+      },
+      {
+        "id": "cross-platform",
+        "icon": "Monitor",
+        "headline": {
+          "en": "Cross-platform",
+          "ja": "クロスプラットフォーム"
+        },
+        "body": {
+          "en": "One purchase covers macOS, Windows, and Linux.",
+          "ja": "一度購入でmacOS、Windows、Linuxに対応。"
+        },
+        "screenshot": "/screenshots/vaultz/features/cross-platform.png"
+      },
+      {
+        "id": "encryption",
+        "icon": "ShieldCheck",
+        "headline": {
+          "en": "Strong encryption",
+          "ja": "強力な暗号化"
+        },
+        "body": {
+          "en": "Your vault is encrypted with AES-256 at rest. Only you hold the key.",
+          "ja": "ボルトはAES-256で暗号化されています。鍵を持つのはあなただけです。"
+        },
+        "screenshot": "/screenshots/vaultz/features/encryption.png"
+      },
+      {
+        "id": "open-source",
+        "icon": "Code2",
+        "headline": {
+          "en": "Open source",
+          "ja": "オープンソース"
+        },
+        "body": {
+          "en": "The full code is on GitHub. Anyone can read it, audit it, and verify it does what it says.",
+          "ja": "完全なコードはGitHubで公開されています。誰でも読み、監査し、動作を確認できます。"
+        },
+        "screenshot": "/screenshots/vaultz/features/open-format.png"
+      }
+    ],
+    "faq": [
+      {
+        "q": {
+          "en": "Is this a subscription?",
+          "ja": "サブスクリプションですか？"
+        },
+        "a": {
+          "en": "No. $12 is a one-time payment. You own it permanently, including all future updates to your purchased version.",
+          "ja": "いいえ。$12は一回限りの支払いです。購入したバージョンへの将来のすべてのアップデートを含め、永続的に所有できます。"
+        }
+      },
+      {
+        "q": {
+          "en": "Where is my data stored?",
+          "ja": "データはどこに保存されますか？"
+        },
+        "a": {
+          "en": "Entirely on your device. Vaultz never connects to the internet and has no cloud component. Your vault file lives on your machine and nowhere else.",
+          "ja": "すべてお使いのデバイス上に保存されます。Vaultzはインターネットに接続せず、クラウドコンポーネントもありません。ボルトファイルはあなたのマシンにのみ存在します。"
+        }
+      },
+      {
+        "q": {
+          "en": "Is it safe to trust a small indie app with my passwords?",
+          "ja": "小さなインディーアプリにパスワードを預けて大丈夫ですか？"
+        },
+        "a": {
+          "en": "The full code is on GitHub and anyone can inspect it. Your data is encrypted locally and never transmitted anywhere.",
+          "ja": "完全なコードはGitHubで公開されており、誰でも確認できます。データはローカルで暗号化され、どこにも送信されません。"
+        }
+      },
+      {
+        "q": { "en": "Can I verify it's really offline?", "ja": "本当にオフラインか確認できますか？" },
+        "a": { "en": "Yes — the full source is on", "ja": "はい — 完全なソースコードは" },
+        "aHref": "https://github.com/tinyforgestore/vaultz"
+      }
+    ],
+    "closingCta": {
+      "heading": {
+        "en": "Ready to take back control of your passwords?",
+        "ja": "パスワードの管理を取り戻す準備はできていますか？"
+      }
+    },
+    "footerBrand": "Vaultz by TinyForge"
   }
 ]

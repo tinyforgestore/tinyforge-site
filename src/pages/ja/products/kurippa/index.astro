@@ -1,9 +1,6 @@
 ---
-import KurippaPage from '../../../../components/KurippaPage.astro';
+import ProductPage from '../../../../components/ProductPage.astro';
+import products from '../../../../data/products.json';
+const product = products.find((p) => p.id === 'kurippa')!;
 ---
-
-<KurippaPage
-  lang="ja"
-  title="Kurippa — パワーユーザーのためのクリップボードマネージャー"
-  description="パワーユーザー向けクリップボードマネージャー — 履歴、フォルダ、あいまい検索、スマートペースト。macOSとWindows対応。"
-/>
+<ProductPage {product} lang="ja" />
