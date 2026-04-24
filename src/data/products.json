@@ -5,7 +5,10 @@
     "releasedAt": "2026-04-21",
     "icon": "/icons/kurippa.png",
     "url": "/products/kurippa",
-    "platforms": ["macos", "windows"],
+    "platforms": [
+      "macos",
+      "windows"
+    ],
     "primaryPlatform": "macos",
     "price": {
       "amount": 15,
@@ -58,208 +61,203 @@
       "background": "#EEEAF8",
       "heroshots": [
         {
-          "src": "/screenshots/kurippa/3-clean.png",
+          "src": "/screenshots/kurippa/features/fuzzy-search.png",
           "alt": {
-            "en": "Fuzzy search & URL preview",
-            "ja": "あいまい検索とURLプレビュー"
+            "en": "Find any clip in milliseconds.",
+            "ja": "どのクリップも瞬時に見つかる。"
           }
         },
         {
-          "src": "/screenshots/kurippa/1-clean.png",
+          "src": "/screenshots/kurippa/features/instant-history.png",
           "alt": {
-            "en": "Instant clipboard history",
-            "ja": "インスタントクリップボード履歴"
-          }
+            "en": "Every copy, right where you need it.",
+            "ja": "すべてのコピーを、すぐに手元に。"
+          },
+          "highlight": true
         },
         {
-          "src": "/screenshots/kurippa/2-clean.png",
+          "src": "/screenshots/kurippa/features/multi-select.png",
           "alt": {
-            "en": "Copy a colour. See it instantly.",
-            "ja": "色をコピーして、即座に確認。"
+            "en": "Merge up to five clips into one paste.",
+            "ja": "最大5件をまとめて1回で貼り付け。"
           }
         }
       ]
     },
     "featureSections": [
       {
-        "id": "history",
-        "icon": "Archive",
+        "id": "instant-history",
+        "icon": "History",
         "tag": {
-          "en": "HISTORY & ORGANISATION",
-          "ja": "履歴と整理"
+          "en": "CLIPBOARD HISTORY",
+          "ja": "クリップボード履歴"
         },
         "headline": {
-          "en": "Everything you've copied, always within reach.",
-          "ja": "コピーしたすべてのもの、いつでも手の届くところに。"
+          "en": "Every copy, right where you need it.",
+          "ja": "すべてのコピーを、すぐに手元に。"
         },
         "body": {
-          "en": "Kurippa stores your full clipboard history and keeps it organised. Pin what you reach for most. Group the rest into named folders. Access anything with a keyboard shortcut.",
-          "ja": "Kurippaはクリップボードの完全な履歴を保存し、整理します。よく使うものをピン留め。残りは名前付きフォルダーにグループ化。キーボードショートカットで何でもアクセス。"
+          "en": "Kurippa silently captures every text, image, and rich-text copy you make and keeps them in a searchable list. Summon the full history in under 80 ms with a single hotkey — no Dock icon, no interruption.",
+          "ja": "Kurippaはテキスト・画像・リッチテキストのすべてのコピーを静かに記録し、検索可能なリストに保存します。単一のホットキーで80ms以内に履歴全体を呼び出せます。"
         },
         "bullets": {
           "en": [
-            "Pinned items float to the top — ⌘0 to open",
-            "Folders with ⌘1–⌘9 quick access",
-            "Mixed content — text, code, images, colours"
+            "Captures text, RTF, and images automatically",
+            "Configurable limit: 100 / 500 / 1,000 / Unlimited",
+            "Shows source app, relative time, and character count"
           ],
           "ja": [
-            "ピン留めアイテムはトップに表示 — ⌘0で開く",
-            "フォルダーは⌘1–⌘9でクイックアクセス",
-            "混合コンテンツ — テキスト、コード、画像、カラー"
+            "テキスト・RTF・画像を自動キャプチャ",
+            "上限設定：100 / 500 / 1,000 / 無制限",
+            "ソースアプリ・相対時刻・文字数を表示"
           ]
         },
-        "screenshot": "/screenshots/kurippa/1-clean.png"
+        "screenshot": "/screenshots/kurippa/features/instant-history.png"
       },
       {
         "id": "fuzzy-search",
         "icon": "Search",
         "tag": {
-          "en": "FUZZY SEARCH",
-          "ja": "あいまい検索"
+          "en": "INSTANT SEARCH",
+          "ja": "インスタント検索"
         },
         "headline": {
-          "en": "Find anything. Type anything.",
-          "ja": "何でも見つかる。何でも入力できる。"
+          "en": "Find any clip in milliseconds.",
+          "ja": "どのクリップも瞬時に見つかる。"
         },
         "body": {
-          "en": "Search across your entire clipboard history instantly. Type a fragment and Kurippa finds the match — across text, code, URLs and filenames. No need to remember exactly what you copied.",
-          "ja": "クリップボードの履歴全体を即座に検索。断片を入力するとKurippaがマッチを見つけます — テキスト、コード、URL、ファイル名を横断して。正確に何をコピーしたか覚えている必要はありません。"
+          "en": "Type in the search bar and Kurippa performs a fuzzy match across your entire history in real time. Matched characters are highlighted in bold so you can spot the right item at a glance. The list narrows as you type — no Enter key required.",
+          "ja": "検索バーに入力すると、Kurippaは履歴全体をリアルタイムでファジーマッチします。マッチした文字は太字でハイライトされ、目的のアイテムをすぐに見つけられます。"
         },
         "bullets": {
           "en": [
-            "Fuzzy matching — partial queries work",
-            "Results update as you type",
-            "⌘1–⌘9 to paste any result without lifting your hands"
+            "Real-time fuzzy matching across all history",
+            "Match characters highlighted inline",
+            "Works across text, RTF, and image filenames"
           ],
           "ja": [
-            "あいまいマッチング — 部分的なクエリでも動作",
-            "入力に合わせてリアルタイムで結果が更新",
-            "⌘1–⌘9で手を離さずに任意の結果をペースト"
+            "全履歴をリアルタイムでファジーマッチ",
+            "マッチ文字をインラインでハイライト",
+            "テキスト・RTF・画像ファイル名にも対応"
           ]
         },
-        "screenshot": "/screenshots/kurippa/3-clean.png"
+        "screenshot": "/screenshots/kurippa/features/fuzzy-search.png"
       },
       {
-        "id": "paste-as",
-        "icon": "Scissors",
+        "id": "color-preview",
+        "icon": "Palette",
         "tag": {
-          "en": "PASTE AS",
-          "ja": "形式を指定してペースト"
-        },
-        "headline": {
-          "en": "Paste smarter, not harder.",
-          "ja": "より賢くペースト。"
-        },
-        "body": {
-          "en": "Every clipboard item can be pasted in the format you actually need — not just what you copied. Transform text on the way out without opening another tool.",
-          "ja": "クリップボードのアイテムはコピーしたものだけでなく、実際に必要な形式でペーストできます。別のツールを開かずにテキストを変換。"
-        },
-        "bullets": {
-          "en": [
-            "Plain text — strip all formatting",
-            "Wrapped in code block — for Markdown and chat tools",
-            "camelCase, snake_case, UPPERCASE, slug and more",
-            "Wrap with custom delimiters",
-            "Trim whitespace"
-          ],
-          "ja": [
-            "プレーンテキスト — すべての書式を削除",
-            "コードブロックで囲む — MarkdownやチャットツールのRuby",
-            "camelCase, snake_case, UPPERCASE, slugなど",
-            "カスタム区切り文字で囲む",
-            "空白のトリミング"
-          ]
-        },
-        "screenshot": "/screenshots/kurippa/6-clean.png"
-      },
-      {
-        "id": "colour-detection",
-        "icon": "Pipette",
-        "tag": {
-          "en": "COLOUR DETECTION",
+          "en": "COLOR DETECTION",
           "ja": "カラー検出"
         },
         "headline": {
-          "en": "Copy a colour. See it instantly.",
-          "ja": "カラーをコピー。即座にプレビュー。"
+          "en": "Colors recognised and shown as swatches.",
+          "ja": "カラー値を自動認識してスウォッチ表示。"
         },
         "body": {
-          "en": "Kurippa detects hex, RGB, HSL and Tailwind colour values and renders a live preview swatch — with all three format values shown. No more pasting a hex code into a colour picker just to see what it looks like.",
-          "ja": "KurippaはHex、RGB、HSL、Tailwindのカラー値を検出し、ライブプレビュースウォッチをレンダリングします — 3つのフォーマット値を表示。どんな色か確認するためだけにカラーピッカーにHexコードをペーストする必要はもうありません。"
+          "en": "Whenever you copy a CSS color value — HEX, RGB, HSL, or RGBA — Kurippa automatically detects it and replaces the plain text preview with a large color swatch. The detail panel shows all three formats side by side so you can pick the representation you need.",
+          "ja": "HEX・RGB・HSL・RGBAなどのCSSカラー値をコピーすると、Kurippaが自動検出し、プレーンテキストの代わりに大きなカラースウォッチを表示します。"
         },
         "bullets": {
           "en": [
-            "Detects #hex, rgb(), hsl(), and Tailwind classes",
-            "Shows HEX, RGB and HSL side by side",
-            "Inline colour dot in the list for every colour item"
+            "Detects HEX, RGB, RGBA, HSL, and HSLA formats",
+            "Large swatch preview in the detail panel",
+            "Shows HEX, RGB, and HSL representations simultaneously"
           ],
           "ja": [
-            "#hex、rgb()、hsl()、Tailwindクラスを検出",
-            "HEX、RGB、HSLを並べて表示",
-            "リスト内のすべてのカラーアイテムにインラインカラードット"
+            "HEX・RGB・RGBA・HSL・HSLAを自動検出",
+            "詳細パネルに大きなスウォッチを表示",
+            "HEX・RGB・HSLを同時に表示"
           ]
         },
-        "screenshot": "/screenshots/kurippa/2-clean.png"
+        "screenshot": "/screenshots/kurippa/features/color-preview.png"
       },
       {
-        "id": "qr-decode",
-        "icon": "QrCode",
+        "id": "paste-as",
+        "icon": "Code2",
         "tag": {
-          "en": "QR DECODE",
-          "ja": "QRデコード"
+          "en": "PASTE AS…",
+          "ja": "形式を変換して貼り付け"
         },
         "headline": {
-          "en": "Scanned a QR code? Paste the URL, not the image.",
-          "ja": "QRコードをスキャンしましたか？画像ではなくURLをペースト。"
+          "en": "Transform text before it hits the cursor.",
+          "ja": "貼り付ける前にテキストを変換。"
         },
         "body": {
-          "en": "Copy a QR code image from anywhere and Kurippa decodes it automatically. Paste As gives you the URL directly — no scanner app, no extra steps.",
-          "ja": "どこからでもQRコード画像をコピーすると、Kurippaが自動的にデコードします。Paste AsでURLを直接取得 — スキャナーアプリも余分な手順も不要。"
+          "en": "Press Shift+Enter on any item to open the Paste As menu, which offers context-aware transformations before pasting. Change case, wrap in quotes or brackets, join or number lines, strip whitespace, convert colors between formats, or turn URLs into Markdown links — all without leaving the keyboard.",
+          "ja": "任意のアイテムでShift+Enterを押すと「Paste As」メニューが開きます。ケース変換・クォートやブラケットで囲む・行の結合や番号付け・空白除去・カラー変換・URLのMarkdownリンク化など、キーボードから離れずに変換できます。"
         },
         "bullets": {
           "en": [
-            "Auto-detects QR codes in copied images",
-            "Paste as image or paste the decoded URL",
-            "Works with any QR code — URLs, text, Wi-Fi credentials"
+            "Case transforms: UPPER, lower, Title, camel, snake, slug",
+            "Wrap in quotes, backticks, brackets, or braces",
+            "URL-to-Markdown, color format conversion, code-block wrap"
           ],
           "ja": [
-            "コピーした画像内のQRコードを自動検出",
-            "画像としてペーストするか、デコードされたURLをペースト",
-            "あらゆるQRコードに対応 — URL、テキスト、Wi-Fi認証情報"
+            "大文字・小文字・タイトル・キャメル・スネーク・スラッグに変換",
+            "クォート・バッククォート・括弧などで囲む",
+            "URLのMarkdown化・カラー変換・コードブロックラップ"
           ]
         },
-        "screenshot": "/screenshots/kurippa/4-clean.png"
+        "screenshot": "/screenshots/kurippa/features/paste-as.png"
       },
       {
-        "id": "keyboard",
-        "icon": "Zap",
+        "id": "multi-select",
+        "icon": "Layers",
         "tag": {
-          "en": "BUILT FOR THE KEYBOARD",
-          "ja": "キーボード向け設計"
+          "en": "MULTI-SELECT",
+          "ja": "複数選択"
         },
         "headline": {
-          "en": "From hotkey to paste in under a second.",
-          "ja": "ホットキーから1秒以内にペースト。"
+          "en": "Merge up to five clips into one paste.",
+          "ja": "最大5件をまとめて1回で貼り付け。"
         },
         "body": {
-          "en": "Kurippa is designed to stay out of your way. One global hotkey summons it from any app. One key pastes. It goes back to the background automatically — no clicks, no mode switching.",
-          "ja": "Kurippaは邪魔にならないように設計されています。1つのグローバルホットキーでどのアプリからでも呼び出せます。1つのキーでペースト。自動的にバックグラウンドに戻ります — クリックも、モード切替も不要。"
+          "en": "Hold a modifier key to enter multi-select mode and pick up to five history items. On confirm, Kurippa merges them with your chosen separator — newline, space, or comma — and pastes the combined result in one shot.",
+          "ja": "修飾キーを押しながら複数選択モードに入り、最大5件の履歴アイテムを選択します。確定すると改行・スペース・カンマなど選んだ区切り文字で結合し、1回で貼り付けます。"
         },
         "bullets": {
           "en": [
-            "Global hotkey — customisable",
-            "⌘1–⌘9 instant paste from anywhere in the list",
-            "Pastes into the previously active window automatically",
-            "Sensitive items from password managers never recorded"
+            "Select up to 5 items in order with numbered badges",
+            "Merge with newline, space, or comma separator",
+            "Separator remembered as your default for next time"
           ],
           "ja": [
-            "グローバルホットキー — カスタマイズ可能",
-            "⌘1–⌘9でリストのどこからでも即座にペースト",
-            "以前アクティブだったウィンドウに自動的にペースト",
-            "パスワードマネージャーのセンシティブなアイテムは記録されない"
+            "番号バッジ付きで最大5件を順番に選択",
+            "改行・スペース・カンマで結合",
+            "区切り文字の設定は次回も引き継がれる"
           ]
         },
-        "screenshot": "/screenshots/kurippa/5-clean.png"
+        "screenshot": "/screenshots/kurippa/features/multi-select.png"
+      },
+      {
+        "id": "folders-and-pins",
+        "icon": "FolderOpen",
+        "tag": {
+          "en": "FOLDERS & PINS",
+          "ja": "フォルダー＆ピン"
+        },
+        "headline": {
+          "en": "Organise clips you reach for every day.",
+          "ja": "毎日使うクリップを整理・固定。"
+        },
+        "body": {
+          "en": "Pin frequently used items so they float to the top of the list and survive auto-clear. Create named folders to group related clips — credentials, snippets, templates — and move items between them with a keyboard-driven folder picker.",
+          "ja": "よく使うアイテムをピン留めするとリストの先頭に固定され、自動削除されません。名前付きフォルダーで関連クリップをグループ化し、キーボード操作のフォルダーピッカーで移動できます。"
+        },
+        "bullets": {
+          "en": [
+            "Pin items to keep them at the top permanently",
+            "Create and rename folders for thematic grouping",
+            "Keyboard-driven folder picker with instant navigation"
+          ],
+          "ja": [
+            "ピン留めで常にリスト先頭に固定",
+            "テーマ別のフォルダーを作成・リネーム",
+            "キーボード操作のフォルダーピッカーで即座に移動"
+          ]
+        },
+        "screenshot": "/screenshots/kurippa/features/folders-and-pins.png"
       }
     ],
     "setup": {
@@ -352,7 +350,11 @@
     "releasedAt": "2026-04-11",
     "icon": "/icons/vaultz.png",
     "url": "/products/vaultz",
-    "platforms": ["macos", "windows", "linux"],
+    "platforms": [
+      "macos",
+      "windows",
+      "linux"
+    ],
     "primaryPlatform": "macos",
     "price": {
       "amount": 12,
@@ -407,24 +409,25 @@
       "background": "#131313",
       "heroshots": [
         {
-          "src": "/screenshots/vaultz/setup.png",
+          "src": "/screenshots/vaultz/features/password-list.png",
           "alt": {
-            "en": "Set up in seconds.",
-            "ja": "数秒でセットアップ。"
+            "en": "All your credentials, organized in one place.",
+            "ja": "すべての認証情報を、一か所に整理。"
           }
         },
         {
-          "src": "/screenshots/vaultz/vault.png",
+          "src": "/screenshots/vaultz/features/password-details.png",
           "alt": {
-            "en": "Your vault, organized by folder.",
-            "ja": "フォルダーで整理された、あなたのボルト。"
-          }
+            "en": "Every field at a glance — copy, reveal, edit.",
+            "ja": "すべてのフィールドを一目で — コピー、表示、編集。"
+          },
+          "highlight": true
         },
         {
-          "src": "/screenshots/vaultz/settings.png",
+          "src": "/screenshots/vaultz/features/folder-organization.png",
           "alt": {
-            "en": "Simple, no-nonsense settings.",
-            "ja": "シンプルで余計なものを省いた設定。"
+            "en": "Custom folders keep every credential in context.",
+            "ja": "カスタムフォルダーで、すべての認証情報を整理。"
           }
         }
       ],
@@ -435,82 +438,178 @@
     },
     "featureSections": [
       {
-        "id": "no-cloud",
-        "icon": "WifiOff",
+        "id": "password-list",
+        "icon": "LayoutDashboard",
+        "tag": {
+          "en": "VAULT",
+          "ja": "パスワード管理"
+        },
         "headline": {
-          "en": "No cloud, no account",
-          "ja": "クラウドなし、アカウントなし"
+          "en": "All your credentials, organized in one place.",
+          "ja": "すべての認証情報を、一か所に整理。"
         },
         "body": {
-          "en": "Your passwords never leave your machine. No server, no breach risk, no account required.",
-          "ja": "パスワードはあなたのマシンを離れません。サーバーなし、侵害リスクなし、アカウント不要。"
+          "en": "The dashboard shows all your passwords in a clean list with folder tabs for quick filtering. Search by name instantly. Favorite entries are marked for fast access.",
+          "ja": "ダッシュボードにはすべてのパスワードが一覧表示され、フォルダータブでフィルタリングできます。名前で即時検索が可能で、お気に入りエントリーはすぐにアクセスできます。"
         },
-        "screenshot": "/screenshots/vaultz/features/no-account.png"
+        "bullets": {
+          "en": [
+            "Instant search across all entries",
+            "Folder tabs for filtered views",
+            "Favorites highlighted at the top"
+          ],
+          "ja": [
+            "全エントリへの即時検索",
+            "フォルダータブでフィルタリング",
+            "お気に入りを上部に表示"
+          ]
+        },
+        "screenshot": "/screenshots/vaultz/features/password-list.png"
       },
       {
-        "id": "pricing",
-        "icon": "Tag",
+        "id": "folder-organization",
+        "icon": "FolderOpen",
+        "tag": {
+          "en": "ORGANIZATION",
+          "ja": "整理"
+        },
         "headline": {
-          "en": "One-time price",
-          "ja": "一回限りの価格"
+          "en": "Custom folders keep every credential in context.",
+          "ja": "カスタムフォルダーで、すべての認証情報を整理。"
         },
         "body": {
-          "en": "Pay $12 once. No subscription, no renewal, no price hike. Yours forever.",
-          "ja": "$12を一度お支払いください。サブスクリプション、更新、値上げなし。永遠にあなたのもの。"
+          "en": "Create up to five folders with custom names and icons — Work, Finance, Personal, or whatever fits your life. Switch between them with a single click from the dashboard.",
+          "ja": "最大5つのフォルダーをカスタム名とアイコンで作成できます。「仕事」「個人」「金融」など、自分のライフスタイルに合わせた整理が可能です。"
         },
-        "screenshot": "/screenshots/vaultz/features/pricing.png"
+        "bullets": {
+          "en": [
+            "Up to 5 custom folders with icon picker",
+            "Per-folder password count badge",
+            "One-click folder switching on the dashboard"
+          ],
+          "ja": [
+            "アイコン選択付きで最大5フォルダー作成",
+            "フォルダーごとのパスワード数バッジ",
+            "ダッシュボードからワンクリックで切替"
+          ]
+        },
+        "screenshot": "/screenshots/vaultz/features/folder-organization.png"
       },
       {
-        "id": "local-first",
-        "icon": "Database",
+        "id": "password-details",
+        "icon": "KeyRound",
+        "tag": {
+          "en": "DETAILS",
+          "ja": "詳細表示"
+        },
         "headline": {
-          "en": "Local-first, always available",
-          "ja": "ローカルファースト、常時利用可能"
+          "en": "Every field at a glance — copy, reveal, edit.",
+          "ja": "すべてのフィールドを一目で — コピー、表示、編集。"
         },
         "body": {
-          "en": "Works offline, always. Your vault doesn't depend on someone else's uptime.",
-          "ja": "常にオフラインで動作します。あなたのボルトは他者のアップタイムに依存しません。"
+          "en": "Open any entry to see its username, password, website, notes, and recovery email on a clean detail page. Copy any field instantly, toggle password visibility, and mark entries as favorites.",
+          "ja": "各エントリを開くと、ユーザー名・パスワード・ウェブサイト・メモ・回復メールアドレスを確認できます。フィールドのコピーやパスワードの表示切替も簡単です。"
         },
-        "screenshot": "/screenshots/vaultz/features/local-first.png"
+        "bullets": {
+          "en": [
+            "One-tap copy for any field",
+            "Toggle password visibility on demand",
+            "Star entries as favorites from the detail view"
+          ],
+          "ja": [
+            "任意のフィールドをワンタップでコピー",
+            "パスワードの表示/非表示を切替",
+            "詳細ビューからお気に入りに追加"
+          ]
+        },
+        "screenshot": "/screenshots/vaultz/features/password-details.png"
       },
       {
-        "id": "cross-platform",
-        "icon": "Monitor",
+        "id": "password-generator",
+        "icon": "RefreshCw",
+        "tag": {
+          "en": "GENERATOR",
+          "ja": "パスワード生成"
+        },
         "headline": {
-          "en": "Cross-platform",
-          "ja": "クロスプラットフォーム"
+          "en": "Generate strong passwords without leaving the app.",
+          "ja": "アプリを離れずに強力なパスワードを生成。"
         },
         "body": {
-          "en": "One purchase covers macOS, Windows, and Linux.",
-          "ja": "一度購入でmacOS、Windows、Linuxに対応。"
+          "en": "The built-in password generator creates cryptographically strong passwords of any length. Choose character sets — uppercase, lowercase, numbers, symbols — and regenerate until satisfied.",
+          "ja": "内蔵パスワードジェネレーターが任意の長さで強力なパスワードを生成します。大文字・小文字・数字・記号を自由に組み合わせ、満足するまで再生成できます。"
         },
-        "screenshot": "/screenshots/vaultz/features/cross-platform.png"
+        "bullets": {
+          "en": [
+            "Configurable length from 8 to 32 characters",
+            "Toggle uppercase, numbers, and symbols",
+            "One click to regenerate a new password"
+          ],
+          "ja": [
+            "8〜32文字で長さを調整",
+            "大文字・数字・記号のオン/オフ切替",
+            "ワンクリックで再生成"
+          ]
+        },
+        "screenshot": "/screenshots/vaultz/features/password-generator.png"
       },
       {
-        "id": "encryption",
+        "id": "bulk-actions",
+        "icon": "CheckSquare",
+        "tag": {
+          "en": "PRODUCTIVITY",
+          "ja": "一括操作"
+        },
+        "headline": {
+          "en": "Select multiple entries and act on them at once.",
+          "ja": "複数のエントリーを選択して、一括操作。"
+        },
+        "body": {
+          "en": "Activate selection mode to checkbox-select multiple entries. Bulk-favorite, unfavorite, or delete a batch of passwords in one action — ideal for cleaning up after a breach or spring-cleaning your vault.",
+          "ja": "選択モードで複数エントリーをチェックボックス選択。まとめてお気に入り追加・削除・一括削除が可能です。情報漏洩後の整理やボルトの定期メンテナンスに最適です。"
+        },
+        "bullets": {
+          "en": [
+            "Multi-select mode with checkboxes",
+            "Bulk favorite, unfavorite, or delete",
+            "Select All / Deselect All shortcuts"
+          ],
+          "ja": [
+            "チェックボックスで複数選択モード",
+            "まとめてお気に入り・削除操作",
+            "全選択 / 全解除ショートカット"
+          ]
+        },
+        "screenshot": "/screenshots/vaultz/features/bulk-actions.png"
+      },
+      {
+        "id": "settings-security",
         "icon": "ShieldCheck",
+        "tag": {
+          "en": "SECURITY",
+          "ja": "セキュリティ"
+        },
         "headline": {
-          "en": "Strong encryption",
-          "ja": "強力な暗号化"
+          "en": "Lock screen, master password, and encrypted backups.",
+          "ja": "ロック画面・マスターパスワード・暗号化バックアップ。"
         },
         "body": {
-          "en": "Your vault is encrypted with AES-256 at rest. Only you hold the key.",
-          "ja": "ボルトはAES-256で暗号化されています。鍵を持つのはあなただけです。"
+          "en": "Configure auto-lock with a timeout that fits your workflow. Change your master password at any time, export an encrypted vault backup for safekeeping, and manage keyboard shortcuts from a single settings screen.",
+          "ja": "ワークフローに合わせた自動ロックのタイムアウトを設定。マスターパスワードの変更、暗号化バックアップのエクスポート、キーボードショートカットの管理をひとつの設定画面から行えます。"
         },
-        "screenshot": "/screenshots/vaultz/features/encryption.png"
-      },
-      {
-        "id": "open-source",
-        "icon": "Code2",
-        "headline": {
-          "en": "Open source",
-          "ja": "オープンソース"
+        "bullets": {
+          "en": [
+            "Configurable auto-lock timeout (1–30 min)",
+            "Change master password anytime",
+            "Export encrypted vault backup"
+          ],
+          "ja": [
+            "1〜30分の自動ロックタイムアウト設定",
+            "いつでもマスターパスワードを変更可能",
+            "暗号化されたバックアップをエクスポート"
+          ]
         },
-        "body": {
-          "en": "The full code is on GitHub. Anyone can read it, audit it, and verify it does what it says.",
-          "ja": "完全なコードはGitHubで公開されています。誰でも読み、監査し、動作を確認できます。"
-        },
-        "screenshot": "/screenshots/vaultz/features/open-format.png"
+        "screenshot": "/screenshots/vaultz/features/settings-security.png"
       }
     ],
     "faq": [
@@ -545,8 +644,14 @@
         }
       },
       {
-        "q": { "en": "Can I verify it's really offline?", "ja": "本当にオフラインか確認できますか？" },
-        "a": { "en": "Yes — the full source is on", "ja": "はい — 完全なソースコードは" },
+        "q": {
+          "en": "Can I verify it's really offline?",
+          "ja": "本当にオフラインか確認できますか？"
+        },
+        "a": {
+          "en": "Yes — the full source is on",
+          "ja": "はい — 完全なソースコードは"
+        },
         "aHref": "https://github.com/tinyforgestore/vaultz"
       }
     ],
