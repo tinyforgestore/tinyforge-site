@@ -3,8 +3,32 @@ import { createServer } from 'vite';
 import { resolve, dirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { readdirSync, existsSync, mkdirSync, readFileSync, writeFileSync, renameSync } from 'fs';
+import sharp from 'sharp';
+
+async function applyRoundedCorners(pngPath: string, radius: number) {
+  if (radius === 0) return;
+  try {
+    const buf = await sharp(pngPath).toBuffer();
+    const meta = await sharp(buf).metadata();
+    const { width = 0, height = 0 } = meta;
+    const mask = Buffer.from(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect x="0" y="0" width="${width}" height="${height}" rx="${radius}" ry="${radius}" fill="#fff"/></svg>`
+    );
+    await sharp(buf)
+      .composite([{ input: mask, blend: 'dest-in' }])
+      .png()
+      .toFile(pngPath);
+  } catch (err) {
+    console.warn(`Warning: failed to apply rounded corners to ${pngPath}:`, err);
+  }
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const radius = Number(process.env.RADIUS ?? 12);
+if (!Number.isFinite(radius) || radius < 0 || radius > 200) {
+  console.error('Error: RADIUS must be a finite number between 0 and 200');
+  process.exit(1);
+}
 const app = process.env.APP;
 if (!app) {
   console.error('Error: APP environment variable is required (e.g. APP=kurippa)');
@@ -134,6 +158,7 @@ async function main() {
 
       const outPath = resolve(outputDir, `${id}.png`);
       await el.screenshot({ path: outPath });
+      await applyRoundedCorners(outPath, radius);
       captured.push(id);
       console.log(`Captured: ${id} → ${outPath}`);
       await page.close();
