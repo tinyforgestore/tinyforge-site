@@ -1,0 +1,321 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from './Footer.astro';
+import { useTranslations } from '../i18n/ui';
+import type { Locale } from '../i18n/ui';
+import type { CollectionEntry } from 'astro:content';
+import { render, getCollection } from 'astro:content';
+
+interface Props {
+  lang: Locale;
+  post: CollectionEntry<'blog'>;
+}
+
+const { lang, post } = Astro.props;
+const t = useTranslations(lang);
+
+const { Content } = await render(post);
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'ja' ? 'ja-JP' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const slug = post.id.replace(/^[a-z]{2}\//, '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
+const otherLang = lang === 'ja' ? 'en' : 'ja';
+const allPosts = await getCollection('blog');
+const counterpart = allPosts.find((p) =>
+  p.id.startsWith(`${otherLang}/`) &&
+  p.id.replace(/^[a-z]{2}\//, '').replace(/^\d{4}-\d{2}-\d{2}-/, '') === slug
+);
+const counterpartHref = counterpart
+  ? (otherLang === 'ja' ? `/ja/blog/${slug}` : `/blog/${slug}`)
+  : null;
+const langToggleHref = counterpartHref ?? t('nav.lang.href');
+
+const canonicalHref = lang === 'ja' ? `/ja/blog/${slug}` : `/blog/${slug}`;
+
+const blogIndexHref = lang === 'ja' ? '/ja/blog' : '/blog';
+const description = post.data.description;
+---
+
+<Layout title={`${post.data.title} — TinyForge`} description={description} {lang}>
+  <Fragment slot="head">
+    <link rel="alternate" hreflang={lang} href={canonicalHref} />
+    {counterpartHref && (
+      <link rel="alternate" hreflang={otherLang} href={counterpartHref} />
+    )}
+  </Fragment>
+  <header class="site-header">
+    <div class="container">
+      <a href={t('nav.home.href')} class="wordmark" aria-label="TinyForge home">
+        <img src="/logo.png" alt="TinyForge logo" width="24" height="24" />
+        <span class="wordmark-text">TinyForge</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="site-nav">
+          <li><a href={t('nav.blog.href')} class="active">{t('nav.blog')}</a></li>
+          <li><a href={t('nav.about.href')}>{t('nav.about')}</a></li>
+          <li><a href={langToggleHref} class="lang-toggle">{t('nav.lang')}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="post-section">
+    <div class="container">
+      <a href={blogIndexHref} class="post-back">{t('blog.back')}</a>
+
+      <article>
+        <header class="post-header">
+          <h1 class="post-title">{post.data.title}</h1>
+          <div class="post-meta">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {t('blog.published')} · {dateFormatter.format(post.data.pubDate)}
+            </time>
+            <span class="post-meta-sep">·</span>
+            <span>
+              {t('blog.author.by')} <a href="https://github.com/shibasawa" class="post-meta-author" target="_blank" rel="noopener noreferrer">Shibasawa</a>
+            </span>
+            {post.data.updatedDate && (
+              <>
+                <span class="post-meta-sep">·</span>
+                <time datetime={post.data.updatedDate.toISOString()}>
+                  {t('blog.updated')} · {dateFormatter.format(post.data.updatedDate)}
+                </time>
+              </>
+            )}
+          </div>
+          {post.data.tags.length > 0 && (
+            <ul class="post-tags">
+              {post.data.tags.map((tag) => (
+                <li class="post-tag">{tag}</li>
+              ))}
+            </ul>
+          )}
+        </header>
+
+        <div class="blog-prose">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <Footer {lang} />
+</Layout>
+
+<style>
+  .post-section {
+    padding-block: 3rem 6rem;
+  }
+
+  .post-back {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 2.5rem;
+    transition: color 0.15s ease;
+  }
+
+  .post-back:hover {
+    color: var(--color-text);
+  }
+
+  .post-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 3vw, 2.125rem);
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin-bottom: 1.25rem;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .post-meta-sep {
+    color: var(--color-border);
+  }
+
+  .post-meta-author {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 2px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  .post-meta-author:hover {
+    color: var(--color-text);
+    text-decoration-color: var(--color-text-muted);
+  }
+
+  .post-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .post-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+</style>
+
+<style is:global>
+  .blog-prose {
+    color: var(--color-text);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .blog-prose > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .blog-prose h2 {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-prose h3 {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.005em;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-prose p {
+    color: var(--color-text);
+  }
+
+  .blog-prose strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .blog-prose a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-dim);
+    text-underline-offset: 3px;
+  }
+
+  .blog-prose a:hover {
+    color: var(--color-accent-light);
+    text-decoration-color: var(--color-accent-light);
+  }
+
+  .blog-prose ul,
+  .blog-prose ol {
+    padding-left: 1.5rem;
+    color: var(--color-text);
+  }
+
+  .blog-prose li + li {
+    margin-top: 0.4rem;
+  }
+
+  .blog-prose blockquote {
+    border-left: 2px solid var(--color-accent-dim);
+    padding-left: 1rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .blog-prose hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin-block: 2.5rem;
+  }
+
+  .blog-prose code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background-color: var(--color-bg-card);
+    padding: 0.1rem 0.375rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+  }
+
+  .blog-prose pre {
+    background-color: var(--color-bg-card) !important;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+
+  .blog-prose pre code {
+    background: transparent;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  .blog-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .blog-prose thead {
+    background-color: var(--color-bg-card);
+  }
+
+  .blog-prose th,
+  .blog-prose td {
+    padding: 0.625rem 0.875rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .blog-prose th {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+  }
+
+  .blog-prose img {
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+  }
+</style>

@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from './Footer.astro';
+import { useTranslations } from '../i18n/ui';
+import type { Locale } from '../i18n/ui';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description: string;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { lang, title, description, posts } = Astro.props;
+const t = useTranslations(lang);
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'ja' ? 'ja-JP' : 'en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+
+const slugFor = (id: string) => id.replace(/^[a-z]{2}\//, '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
+---
+
+<Layout {title} {description} {lang}>
+  <header class="site-header">
+    <div class="container">
+      <a href={t('nav.home.href')} class="wordmark" aria-label="TinyForge home">
+        <img src="/logo.png" alt="TinyForge logo" width="24" height="24" />
+        <span class="wordmark-text">TinyForge</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="site-nav">
+          <li><a href={t('nav.blog.href')} class="active">{t('nav.blog')}</a></li>
+          <li><a href={t('nav.about.href')}>{t('nav.about')}</a></li>
+          <li><a href={t('nav.lang.href')} class="lang-toggle">{t('nav.lang')}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blog-section">
+    <div class="container">
+      <div class="blog-intro">
+        <span class="blog-eyebrow">{t('blog.eyebrow')}</span>
+        <h1 class="blog-heading">{t('blog.heading')}</h1>
+      </div>
+
+      {posts.length === 0 ? (
+        <p class="blog-empty">{t('blog.empty')}</p>
+      ) : (
+        <ul class="blog-list">
+          {posts.map((post) => {
+            const slug = slugFor(post.id);
+            const href = lang === 'ja' ? `/ja/blog/${slug}` : `/blog/${slug}`;
+            return (
+              <li class="blog-item">
+                <a href={href} class="blog-item-link">
+                  <time class="blog-item-date" datetime={post.data.pubDate.toISOString()}>
+                    {dateFormatter.format(post.data.pubDate)}
+                  </time>
+                  <h2 class="blog-item-title">{post.data.title}</h2>
+                  <p class="blog-item-desc">{post.data.description}</p>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  </main>
+
+  <Footer {lang} />
+</Layout>
+
+<style>
+  .blog-section {
+    padding-block: 4rem 6rem;
+  }
+
+  .blog-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .blog-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .blog-heading {
+    font-family: var(--font-mono);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+  }
+
+  .blog-empty {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .blog-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background-color: var(--color-border);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .blog-item {
+    background-color: var(--color-bg);
+  }
+
+  .blog-item-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-block: 1.5rem;
+    transition: background-color 0.15s ease;
+  }
+
+  .blog-item-link:hover {
+    background-color: var(--color-bg-elevated);
+  }
+
+  .blog-item-link:hover .blog-item-title {
+    color: var(--color-accent);
+  }
+
+  .blog-item-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .blog-item-title {
+    font-family: var(--font-mono);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.005em;
+    transition: color 0.15s ease;
+  }
+
+  .blog-item-desc {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+  }
+</style>

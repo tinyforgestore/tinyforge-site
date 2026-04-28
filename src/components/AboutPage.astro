@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Footer from './Footer.astro';
 import { useTranslations, CONTACT_EMAIL, X_URL, X_HANDLE } from '../i18n/ui';
 import type { Locale } from '../i18n/ui';
 
@@ -22,6 +23,7 @@ const t = useTranslations(lang);
       </a>
       <nav aria-label="Main navigation">
         <ul class="site-nav">
+          <li><a href={t('nav.blog.href')}>{t('nav.blog')}</a></li>
           <li><a href={t('nav.about.href')} class="active">{t('nav.about')}</a></li>
           <li><a href={t('nav.lang.href')} class="lang-toggle">{t('nav.lang')}</a></li>
         </ul>
@@ -56,15 +58,7 @@ const t = useTranslations(lang);
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span>{t('footer.copyright')}</span>
-      <span class="footer-sep" aria-hidden="true">&middot;</span>
-      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-      <span class="footer-sep" aria-hidden="true">&middot;</span>
-      <a href={X_URL} target="_blank" rel="noopener noreferrer">{X_HANDLE}</a>
-    </div>
-  </footer>
+  <Footer {lang} />
 </Layout>
 
 <style>

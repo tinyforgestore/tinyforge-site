@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import path from 'path';
 
 export default defineConfig({
@@ -15,6 +16,13 @@ export default defineConfig({
     defaultLocale: 'en',
     locales: ['en', 'ja'],
     routing: { prefixDefaultLocale: false },
+  },
+  integrations: [sitemap()],
+  markdown: {
+    shikiConfig: {
+      theme: 'github-dark-dimmed',
+      wrap: false,
+    },
   },
   redirects: {
     '/l/kurippa': 'https://tinyforgestore.lemonsqueezy.com/checkout/buy/c4c7e746-ca85-492d-a4b9-cad7e749279f',

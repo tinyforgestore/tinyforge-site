@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import BlogIndex from '../../../components/BlogIndex.astro';
+
+const isProd = import.meta.env.PROD;
+
+const posts = (await getCollection('blog'))
+  .filter((p) => p.id.startsWith('ja/') && (!isProd || !p.data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BlogIndex
+  lang="ja"
+  title="ブログ — TinyForge"
+  description="TinyForgeスタジオからのノート — デスクトップアプリ、パフォーマンス、小さなツール作りについて。"
+  posts={posts}
+/>

@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { CONTACT_EMAIL, X_URL, X_HANDLE } from '@/i18n/ui';
+import Footer from '@/components/Footer.astro';
 import type { Locale } from '@/i18n/ui';
 import { Archive, Search, Scissors, Pipette, QrCode, Zap, WifiOff, Tag, Database, Monitor, ShieldCheck, Code2 } from 'lucide-astro';
 
@@ -133,8 +133,6 @@ const linuxUrl = downloadUrls.linux ?? fallbackUrl;
 const downloadMacLabel = lang === 'ja' ? 'macOS版をダウンロード →' : 'Download for macOS →';
 const downloadWindowsLabel = lang === 'ja' ? 'Windows版をダウンロード →' : 'Download for Windows →';
 const downloadLinuxLabel = lang === 'ja' ? 'Linux版をダウンロード →' : 'Download for Linux →';
-
-const footerBrand = product.footerBrand ?? `${product.id} by TinyForge`;
 
 // Icon registry — Heroicons v2 outline
 
@@ -460,15 +458,7 @@ const showcaseIsDark = showcaseBg === '#131313' || showcaseBg.startsWith('#0') |
   </section>
 
   <!-- ── Footer ───────────────────────────────────────────── -->
-  <footer class="site-footer">
-    <div class="container">
-      <span>{footerBrand}</span>
-      <span class="footer-sep" aria-hidden="true">&middot;</span>
-      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-      <span class="footer-sep" aria-hidden="true">&middot;</span>
-      <a href={X_URL} target="_blank" rel="noopener noreferrer">{X_HANDLE}</a>
-    </div>
-  </footer>
+  <Footer {lang} />
 </Layout>
 
 <style>
