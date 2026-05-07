@@ -413,18 +413,18 @@
           }
         },
         {
-          "src": "/screenshots/vaultz/features/password-details.png",
+          "src": "/screenshots/vaultz/features/global-overlays.png",
           "alt": {
-            "en": "Every field at a glance — copy, reveal, edit.",
-            "ja": "すべてのフィールドを一目で — コピー、表示、編集。"
+            "en": "Reach your vault from any app — no window switching.",
+            "ja": "どのアプリからでもボルトを呼び出せる — ウィンドウを切り替えずに。"
           },
           "highlight": true
         },
         {
-          "src": "/screenshots/vaultz/features/folder-organization.png",
+          "src": "/screenshots/vaultz/features/password-details.png",
           "alt": {
-            "en": "Custom folders keep every credential in context.",
-            "ja": "カスタムフォルダーで、すべての認証情報を整理。"
+            "en": "Every field at a glance — copy, reveal, edit.",
+            "ja": "すべてのフィールドを一目で — コピー、表示、編集。"
           }
         }
       ],
@@ -434,6 +434,35 @@
       }
     },
     "featureSections": [
+      {
+        "id": "global-overlays",
+        "icon": "Search",
+        "tag": {
+          "en": "ANYWHERE",
+          "ja": "どこからでも"
+        },
+        "headline": {
+          "en": "Reach your vault from any app — no window switching.",
+          "ja": "どのアプリからでも呼び出せる — ウィンドウを切り替えずに。"
+        },
+        "body": {
+          "en": "Hit Cmd+Shift+L from anywhere to summon a quick-search overlay. Type a few letters of the site name, hit Enter to copy the password (or Cmd+E for the username), and the overlay disappears. Vaultz lives in your menu bar, pre-warmed in the background, so the overlay opens in microseconds — no cold launch.",
+          "ja": "どこにいてもCmd+Shift+Lでクイック検索オーバーレイを呼び出せます。サイト名の数文字を入力してEnterでパスワードをコピー（Cmd+Eならユーザー名）、すぐに非表示に。Vaultzはメニューバーに常駐し、バックグラウンドでプリウォームされているため、オーバーレイはマイクロ秒単位で開きます。コールド起動なし。"
+        },
+        "bullets": {
+          "en": [
+            "Cmd+Shift+L from any app — no window switching",
+            "Enter to copy password, Cmd+E to copy username, Esc to close",
+            "Tray-resident and pre-warmed, opens in microseconds"
+          ],
+          "ja": [
+            "どのアプリからでもCmd+Shift+Lで呼び出し",
+            "Enterでパスワード、Cmd+Eでユーザー名をコピー、Escで閉じる",
+            "メニューバー常駐＆プリウォームでマイクロ秒で起動"
+          ]
+        },
+        "screenshot": "/screenshots/vaultz/features/global-overlays.png"
+      },
       {
         "id": "password-list",
         "icon": "LayoutDashboard",
@@ -522,33 +551,33 @@
         "screenshot": "/screenshots/vaultz/features/password-details.png"
       },
       {
-        "id": "password-generator",
-        "icon": "RefreshCw",
+        "id": "generator-overlay",
+        "icon": "Zap",
         "tag": {
           "en": "GENERATOR",
           "ja": "パスワード生成"
         },
         "headline": {
-          "en": "Generate strong passwords without leaving the app.",
-          "ja": "アプリを離れずに強力なパスワードを生成。"
+          "en": "Generate strong passwords without breaking your flow.",
+          "ja": "作業を止めずに強力なパスワードを生成。"
         },
         "body": {
-          "en": "The built-in password generator creates cryptographically strong passwords of any length. Choose character sets — uppercase, lowercase, numbers, symbols — and regenerate until satisfied.",
-          "ja": "内蔵パスワードジェネレーターが任意の長さで強力なパスワードを生成します。大文字・小文字・数字・記号を自由に組み合わせ、満足するまで再生成できます。"
+          "en": "Cmd+Shift+G summons the generator overlay from anywhere. Tweak length and character sets with the keyboard — arrows for length, U/L/N/S to toggle uppercase, lowercase, numbers, symbols. Hit Enter to copy and the overlay closes itself. Forgot to save it? The last 10 generated passwords are kept in encrypted in-session history, cleared on lock or timeout.",
+          "ja": "Cmd+Shift+Gでどこからでもジェネレーターオーバーレイを呼び出します。長さは矢印キー、大文字・小文字・数字・記号はU/L/N/Sでキーボード操作。Enterでコピーすればオーバーレイは自動で閉じます。保存し忘れても、直近10件の生成パスワードは暗号化されたセッション履歴に残り、ロックやタイムアウトでクリアされます。"
         },
         "bullets": {
           "en": [
-            "Configurable length from 8 to 32 characters",
-            "Toggle uppercase, numbers, and symbols",
-            "One click to regenerate a new password"
+            "Cmd+Shift+G overlay with keyboard-driven length and charset toggles",
+            "Enter to copy and close — no friction",
+            "Encrypted in-session history of the last 10 generated passwords"
           ],
           "ja": [
-            "8〜32文字で長さを調整",
-            "大文字・数字・記号のオン/オフ切替",
-            "ワンクリックで再生成"
+            "Cmd+Shift+Gで呼び出せ、長さ・文字種をキーボードで操作",
+            "Enterでコピーして自動で閉じる、摩擦ゼロ",
+            "直近10件を暗号化セッション履歴に保持"
           ]
         },
-        "screenshot": "/screenshots/vaultz/features/password-generator.png"
+        "screenshot": "/screenshots/vaultz/features/generator-overlay.png"
       },
       {
         "id": "bulk-actions",
