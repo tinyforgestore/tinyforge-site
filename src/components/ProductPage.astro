@@ -170,8 +170,8 @@ const showcaseIsDark = showcaseBg === '#131313' || showcaseBg.startsWith('#0') |
               class="btn btn-primary"
               data-download-btn
               data-label-macos={downloadMacLabel}
-              data-label-windows={downloadWindowsLabel}
-              data-label-linux={downloadLinuxLabel}
+              data-label-windows={hasWindows ? downloadWindowsLabel : undefined}
+              data-label-linux={hasLinux ? downloadLinuxLabel : undefined}
               data-label-fallback={trialLabel}
             >{trialLabel}</a>
             <a href={buyUrl} class="btn btn-secondary">{buyLabel}</a>
@@ -391,8 +391,8 @@ const showcaseIsDark = showcaseBg === '#131313' || showcaseBg.startsWith('#0') |
           class="btn btn-primary"
           data-download-btn
           data-label-macos={downloadMacLabel}
-          data-label-windows={downloadWindowsLabel}
-          data-label-linux={downloadLinuxLabel}
+          data-label-windows={hasWindows ? downloadWindowsLabel : undefined}
+          data-label-linux={hasLinux ? downloadLinuxLabel : undefined}
           data-label-fallback={trialLabel}
         >{trialLabel}</a>
         <a href={buyUrl} class="btn btn-secondary">{buyLabel}</a>
@@ -1037,7 +1037,9 @@ const showcaseIsDark = showcaseBg === '#131313' || showcaseBg.startsWith('#0') |
 
     var os = isMac ? 'macos' : isWindows ? 'windows' : isLinux ? 'linux' : 'other';
 
-    // If only mac+windows (no linux), treat linux as 'other'
+    // Treat any platform that isn't actually offered as 'other' so the
+    // script doesn't repoint the download button at a missing URL.
+    if (os === 'windows' && !hasWindows) os = 'other';
     if (os === 'linux' && !hasLinux) os = 'other';
 
     var labels = { macos: downloadMacLabel, windows: downloadWindowsLabel, linux: downloadLinuxLabel };
