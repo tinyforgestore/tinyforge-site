@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Footer from '@/components/Footer.astro';
+import { renderDescription } from '@/utils/formatPlatforms';
 import type { Locale } from '@/i18n/ui';
 import { Archive, Search, Scissors, Pipette, QrCode, Zap, WifiOff, Tag, Database, Monitor, ShieldCheck, Code2 } from 'lucide-astro';
 
@@ -111,7 +112,8 @@ const langToggleHref = lang === 'en'
   : product.url;
 
 const title = l(product.meta?.title) || product.id;
-const description = l(product.meta?.description) || '';
+const descriptionTemplate = l(product.meta?.description) || '';
+const description = renderDescription(descriptionTemplate, product.platforms, lang);
 
 const primaryPlatform = product.primaryPlatform ?? product.platforms[0] ?? 'macos';
 const downloadUrls = product.links?.download ?? {};

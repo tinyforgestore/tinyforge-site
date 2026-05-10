@@ -6,7 +6,8 @@
     "icon": "/icons/kurippa.png",
     "url": "/products/kurippa",
     "platforms": [
-      "macos"
+      "macos",
+      "windows"
     ],
     "primaryPlatform": "macos",
     "price": {
@@ -32,8 +33,8 @@
         "ja": "Kurippa — パワーユーザーのためのクリップボードマネージャー"
       },
       "description": {
-        "en": "Clipboard manager for power users — history, folders, fuzzy search and smart paste. One-time purchase for macOS.",
-        "ja": "パワーユーザー向けクリップボードマネージャー — 履歴、フォルダ、あいまい検索、スマートペースト。macOS対応。"
+        "en": "Clipboard manager for power users — history, folders, fuzzy search and smart paste. One-time purchase for {platforms}.",
+        "ja": "パワーユーザー向けクリップボードマネージャー — 履歴、フォルダ、あいまい検索、スマートペースト。{platforms}対応。"
       }
     },
     "hero": {
@@ -350,7 +351,8 @@
     "icon": "/icons/vaultz.png",
     "url": "/products/vaultz",
     "platforms": [
-      "macos"
+      "macos",
+      "windows"
     ],
     "primaryPlatform": "macos",
     "price": {
@@ -378,8 +380,8 @@
         "ja": "Vaultz — 外部に繋がらないパスワードマネージャー"
       },
       "description": {
-        "en": "Local-first password manager for macOS. One-time price, no cloud, no account required.",
-        "ja": "macOS向けのローカルファーストパスワードマネージャー。一回限りの価格、クラウドなし、アカウント不要。"
+        "en": "Local-first password manager for {platforms}. One-time price, no cloud, no account required.",
+        "ja": "{platforms}向けのローカルファーストパスワードマネージャー。一回限りの価格、クラウドなし、アカウント不要。"
       }
     },
     "hero": {
