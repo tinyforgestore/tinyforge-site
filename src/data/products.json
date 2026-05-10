@@ -367,7 +367,7 @@
     "links": {
       "download": {
         "macos": "https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_universal.dmg",
-        "windows": "https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_1.0.9_x64_en-US.msi",
+        "windows": "https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_x64-setup.exe",
         "linux": "https://github.com/tinyforgestore/vaultz/releases/latest/download/Vaultz_amd64.AppImage"
       },
       "buy": "/l/vaultz",
