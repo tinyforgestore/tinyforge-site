@@ -295,3 +295,6 @@ ASM     → explanation of why (they compile to the same shape)
 ```
 
 Chained iterators read well and run as fast as — or faster than — a hand-written loop. That's a zero-cost abstraction.
+
+::callout{product="kurippa"}
+

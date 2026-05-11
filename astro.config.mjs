@@ -1,5 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import remarkDirective from 'remark-directive';
+import calloutPromo from './src/remark/callout-promo';
 import path from 'path';
 
 export default defineConfig({
@@ -19,6 +21,7 @@ export default defineConfig({
   },
   integrations: [sitemap()],
   markdown: {
+    remarkPlugins: [remarkDirective, calloutPromo],
     shikiConfig: {
       theme: 'github-dark-dimmed',
       wrap: false,

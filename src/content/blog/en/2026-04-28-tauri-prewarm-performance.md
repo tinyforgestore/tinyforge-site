@@ -198,6 +198,8 @@ The remaining user-perceived delay on a prewarmed show is dominated by the macOS
 
 To put the before/after in perspective: the cold path is roughly **50,000× slower** in raw API time than a prewarmed show. In user-perceived terms it's closer to 10–50×, but either way — the difference is the difference between "instant" and "noticeable."
 
+::callout{product="kurippa"}
+
 ---
 
 ## 6. Tradeoffs
