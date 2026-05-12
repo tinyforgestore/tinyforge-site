@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
 import BlogIndex from '../../components/BlogIndex.astro';
+import { isPostVisible } from '@/utils/blogFilter';
 
 const isProd = import.meta.env.PROD;
 
 const posts = (await getCollection('blog'))
-  .filter((p) => p.id.startsWith('en/') && (!isProd || !p.data.draft))
+  .filter((p) => p.id.startsWith('en/') && isPostVisible(p, isProd))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 

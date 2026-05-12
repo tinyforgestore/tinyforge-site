@@ -1,10 +1,11 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import { isPostVisible } from '@/utils/blogFilter';
 
 export async function GET(context: APIContext) {
   const posts = (await getCollection('blog'))
-    .filter((p) => p.id.startsWith('ja/') && !p.data.draft)
+    .filter((p) => p.id.startsWith('ja/') && isPostVisible(p, true))
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   return rss({

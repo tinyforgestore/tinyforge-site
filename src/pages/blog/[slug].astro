@@ -1,11 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 import BlogPost from '../../components/BlogPost.astro';
+import { isPostVisible } from '@/utils/blogFilter';
 
 export async function getStaticPaths() {
+  const isProd = import.meta.env.PROD;
   const posts = await getCollection('blog');
   return posts
-    .filter((p) => p.id.startsWith('en/'))
+    .filter((p) => p.id.startsWith('en/') && isPostVisible(p, isProd))
     .map((post) => ({
       params: { slug: post.id.replace(/^en\//, '').replace(/^\d{4}-\d{2}-\d{2}-/, '') },
       props: { post },
