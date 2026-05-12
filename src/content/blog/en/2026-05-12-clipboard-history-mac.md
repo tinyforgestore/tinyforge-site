@@ -3,6 +3,7 @@ title: "How to Retrieve Something You Copied Earlier on Mac"
 description: "macOS only keeps one clipboard item at a time. Here's why, what your options are, and how a clipboard manager fixes the problem for good."
 pubDate: 2026-05-12
 tags: [macos, clipboard, kurippa, productivity]
+category: tips
 ---
 
 You copied something. Then you copied something else. Now the first thing is gone.

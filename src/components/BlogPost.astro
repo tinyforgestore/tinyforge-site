@@ -5,6 +5,7 @@ import { useTranslations } from '../i18n/ui';
 import type { Locale } from '../i18n/ui';
 import type { CollectionEntry } from 'astro:content';
 import { render, getCollection } from 'astro:content';
+import { readingTime } from '@/utils/readingTime';
 
 interface Props {
   lang: Locale;
@@ -38,6 +39,9 @@ const canonicalHref = lang === 'ja' ? `/ja/blog/${slug}` : `/blog/${slug}`;
 
 const blogIndexHref = lang === 'ja' ? '/ja/blog' : '/blog';
 const description = post.data.description;
+const minutes = readingTime(post.body ?? '', lang);
+const readingTimeLabel = t('blog.readingTime').replace('{n}', String(minutes));
+const categoryLabel = post.data.category === 'dev' ? 'DEV' : 'TIPS';
 ---
 
 <Layout title={`${post.data.title} — TinyForge`} description={description} {lang}>
@@ -71,9 +75,13 @@ const description = post.data.description;
         <header class="post-header">
           <h1 class="post-title">{post.data.title}</h1>
           <div class="post-meta">
+            <span class={`blog-category-pill blog-category-pill--${post.data.category}`}>{categoryLabel}</span>
+            <span class="post-meta-sep">·</span>
             <time datetime={post.data.pubDate.toISOString()}>
               {t('blog.published')} · {dateFormatter.format(post.data.pubDate)}
             </time>
+            <span class="post-meta-sep">·</span>
+            <span class="post-meta-reading">{readingTimeLabel}</span>
             <span class="post-meta-sep">·</span>
             <span>
               {t('blog.author.by')} <a href="https://github.com/shibasawa" class="post-meta-author" target="_blank" rel="noopener noreferrer">Shibasawa</a>
@@ -144,6 +152,7 @@ const description = post.data.description;
   .post-meta {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.5rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
@@ -153,6 +162,28 @@ const description = post.data.description;
 
   .post-meta-sep {
     color: var(--color-border);
+  }
+
+  .blog-category-pill {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid;
+    border-radius: var(--radius);
+    text-transform: uppercase;
+  }
+
+  .blog-category-pill--dev {
+    color: var(--color-accent-light);
+    border-color: var(--color-accent-dim);
+  }
+
+  .blog-category-pill--tips {
+    color: var(--color-success);
+    border-color: var(--color-success-dim);
   }
 
   .post-meta-author {

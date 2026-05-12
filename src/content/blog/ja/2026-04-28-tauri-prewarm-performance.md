@@ -3,6 +3,7 @@ title: "Tauriのコールド起動は約1秒かかった。それを「一瞬」
 description: "Tauriのウェブビューをプリウォームすることで、ホットキーポップアップの遅延をコールド起動の約1秒からAPI時間で約15µsまで短縮した方法 — UIをSwiftUIに書き直さずに。"
 pubDate: 2026-04-28
 tags: [tauri, macos, performance, kurippa]
+category: dev
 ---
 
 [Kurippa](/products/kurippa) — macOS向けのキーボードファーストなクリップボードマネージャー — を作り始めたとき、バグよりも気になることがあった。

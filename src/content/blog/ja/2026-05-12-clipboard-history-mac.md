@@ -3,6 +3,7 @@ title: "Macで「さっきコピーしたもの」を取り戻す方法"
 description: "macOSのクリップボードは1件しか保持できない。なぜそうなのか、何ができるか、そしてクリップボードマネージャーがこの問題をどう解決するか。"
 pubDate: 2026-05-12
 tags: [macos, clipboard, kurippa, productivity]
+category: tips
 ---
 
 何かをコピーした。次に別のものをコピーした。最初のものは消えてしまった。

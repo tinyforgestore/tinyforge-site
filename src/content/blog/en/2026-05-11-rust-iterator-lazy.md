@@ -3,6 +3,7 @@ title: "Rust's Iterators Are Lazy — Proven With Logs"
 description: "Verifying Rust iterator laziness with println, criterion benchmarks, and cargo-show-asm."
 pubDate: 2026-05-11
 tags: [rust, performance, iterators]
+category: dev
 ---
 
 Rust iterators are **lazily evaluated**.

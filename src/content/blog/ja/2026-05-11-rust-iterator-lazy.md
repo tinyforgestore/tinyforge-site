@@ -3,6 +3,7 @@ title: "Rustのイテレータは「怠け者」だ — ログで証明する"
 description: "Rustのイテレータの遅延評価を、println、criterionベンチマーク、cargo-show-asmで実際に確かめる。"
 pubDate: 2026-05-11
 tags: [rust, performance, iterators]
+category: dev
 ---
 
 Rustのイテレータは **遅延評価（lazy evaluation）** だ。

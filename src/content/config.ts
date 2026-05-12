@@ -9,6 +9,7 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
+    category: z.enum(['dev', 'tips']).default('dev'),
     author: z.string().default('TinyForge'),
     draft: z.boolean().default(false),
     heroImage: z.string().optional(),

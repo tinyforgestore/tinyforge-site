@@ -4,6 +4,7 @@ import Footer from './Footer.astro';
 import { useTranslations } from '../i18n/ui';
 import type { Locale } from '../i18n/ui';
 import type { CollectionEntry } from 'astro:content';
+import { readingTime } from '@/utils/readingTime';
 
 interface Props {
   lang: Locale;
@@ -58,9 +59,19 @@ const slugFor = (id: string) => id.replace(/^[a-z]{2}\//, '').replace(/^\d{4}-\d
             return (
               <li class="blog-item">
                 <a href={href} class="blog-item-link">
-                  <time class="blog-item-date" datetime={post.data.pubDate.toISOString()}>
-                    {dateFormatter.format(post.data.pubDate)}
-                  </time>
+                  <div class="blog-item-meta">
+                    <span class={`blog-category-pill blog-category-pill--${post.data.category}`}>
+                      {post.data.category === 'dev' ? 'DEV' : 'TIPS'}
+                    </span>
+                    <span class="blog-item-meta-sep" aria-hidden="true">·</span>
+                    <time class="blog-item-date" datetime={post.data.pubDate.toISOString()}>
+                      {dateFormatter.format(post.data.pubDate)}
+                    </time>
+                    <span class="blog-item-meta-sep" aria-hidden="true">·</span>
+                    <span class="blog-item-reading-time">
+                      {t('blog.readingTime').replace('{n}', String(readingTime(post.body ?? '', lang)))}
+                    </span>
+                  </div>
                   <h2 class="blog-item-title">{post.data.title}</h2>
                   <p class="blog-item-desc">{post.data.description}</p>
                 </a>
@@ -138,11 +149,49 @@ const slugFor = (id: string) => id.replace(/^[a-z]{2}\//, '').replace(/^\d{4}-\d
     color: var(--color-accent);
   }
 
-  .blog-item-date {
+  .blog-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--color-text-muted);
     letter-spacing: 0.04em;
+  }
+
+  .blog-item-meta-sep {
+    color: var(--color-border);
+  }
+
+  .blog-item-date,
+  .blog-item-reading-time {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .blog-category-pill {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid;
+    border-radius: var(--radius);
+    text-transform: uppercase;
+  }
+
+  .blog-category-pill--dev {
+    color: var(--color-accent-light);
+    border-color: var(--color-accent-dim);
+  }
+
+  .blog-category-pill--tips {
+    color: var(--color-success);
+    border-color: var(--color-success-dim);
   }
 
   .blog-item-title {
