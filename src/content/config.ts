@@ -13,6 +13,13 @@ const blog = defineCollection({
     author: z.string().default('TinyForge'),
     draft: z.boolean().default(false),
     heroImage: z.string().optional(),
+    mirrors: z
+      .object({
+        devto: z.string().url().optional(),
+        zenn: z.string().url().optional(),
+        substack: z.string().url().optional(),
+      })
+      .optional(),
   }),
 });
 

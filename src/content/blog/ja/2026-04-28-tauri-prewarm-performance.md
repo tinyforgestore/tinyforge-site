@@ -4,6 +4,8 @@ description: "Tauriのウェブビューをプリウォームすることで、�
 pubDate: 2026-04-28
 tags: [tauri, macos, performance, kurippa]
 category: dev
+mirrors:
+  zenn: https://zenn.dev/link/articles/6f9bb77c54409f
 ---
 
 [Kurippa](/products/kurippa) — macOS向けのキーボードファーストなクリップボードマネージャー — を作り始めたとき、バグよりも気になることがあった。

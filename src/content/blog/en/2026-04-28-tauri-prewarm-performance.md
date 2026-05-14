@@ -4,6 +4,8 @@ description: "How pre-warming the Tauri webview drops hotkey-popup latency from 
 pubDate: 2026-04-28
 tags: [tauri, macos, performance, kurippa]
 category: dev
+mirrors:
+  devto: https://dev.to/tinyforge/tauri-cold-launch-was-1s-heres-how-i-got-it-to-feel-instant-32lh
 ---
 
 When I started building [Kurippa](/products/kurippa) — a keyboard-first clipboard manager for macOS — I ran into something that bothered me more than any bug.

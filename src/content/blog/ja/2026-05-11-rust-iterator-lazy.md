@@ -4,6 +4,8 @@ description: "Rustのイテレータの遅延評価を、println、criterionベ�
 pubDate: 2026-05-11
 tags: [rust, performance, iterators]
 category: dev
+mirrors:
+  zenn: https://zenn.dev/link/articles/e2a67094c824c3
 ---
 
 Rustのイテレータは **遅延評価（lazy evaluation）** だ。

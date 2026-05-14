@@ -42,6 +42,15 @@ const description = post.data.description;
 const minutes = readingTime(post.body ?? '', lang);
 const readingTimeLabel = t('blog.readingTime').replace('{n}', String(minutes));
 const categoryLabel = post.data.category === 'dev' ? 'DEV' : 'TIPS';
+
+const MIRROR_LABELS: Record<string, string> = {
+  devto: 'dev.to',
+  zenn: 'Zenn',
+  substack: 'Substack',
+};
+const mirrorEntries = Object.entries(post.data.mirrors ?? {})
+  .filter(([, url]) => Boolean(url))
+  .map(([key, url]) => ({ key, url: url as string, label: MIRROR_LABELS[key] ?? key }));
 ---
 
 <Layout title={`${post.data.title} — TinyForge`} description={description} {lang}>
@@ -95,6 +104,17 @@ const categoryLabel = post.data.category === 'dev' ? 'DEV' : 'TIPS';
               </>
             )}
           </div>
+          {mirrorEntries.length > 0 && (
+            <div class="post-mirrors">
+              <span class="post-mirrors-label">{t('blog.alsoOn')}</span>
+              {mirrorEntries.map((m, i) => (
+                <>
+                  {i > 0 && <span class="post-meta-sep">·</span>}
+                  <a class="post-mirror-link" href={m.url} target="_blank" rel="noopener noreferrer">{m.label}</a>
+                </>
+              ))}
+            </div>
+          )}
           {post.data.tags.length > 0 && (
             <ul class="post-tags">
               {post.data.tags.map((tag) => (
@@ -195,6 +215,35 @@ const categoryLabel = post.data.category === 'dev' ? 'DEV' : 'TIPS';
   }
 
   .post-meta-author:hover {
+    color: var(--color-text);
+    text-decoration-color: var(--color-text-muted);
+  }
+
+  .post-mirrors {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .post-mirrors-label {
+    color: var(--color-text-muted);
+  }
+
+  .post-mirror-link {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 2px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  .post-mirror-link:hover {
     color: var(--color-text);
     text-decoration-color: var(--color-text-muted);
   }
