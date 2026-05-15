@@ -4,6 +4,8 @@ description: "Verifying Rust iterator laziness with println, criterion benchmark
 pubDate: 2026-05-11
 tags: [rust, performance, iterators]
 category: dev
+mirrors:
+  devto: https://dev.to/tinyforge/rusts-iterators-are-lazy-proven-with-logs-4509
 ---
 
 Rust iterators are **lazily evaluated**.

@@ -4,6 +4,8 @@ description: "JavaScriptの配列メソッドはなぜ必要以上に動くの�
 pubDate: 2026-05-18
 tags: [typescript, javascript, performance, iterators, lazy-evaluation]
 category: dev
+mirrors:
+  zenn: https://zenn.dev/link/articles/a6213e7922e838
 ---
 
 > 遅延イテレータシリーズのパート2。
