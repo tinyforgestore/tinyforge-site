@@ -9,6 +9,8 @@ category: dev
 > This is part 2 of a series on lazy iterators.
 > Part 1: [Rust's Iterators Are Lazy — Proven With Logs](/blog/rust-iterator-lazy/)
 
+> **Update (2026-05-18)**: Added Section 4 on Iterator Helpers (ES2025). The original framing — that lazy iteration in JS requires generators or a library — is outdated for modern runtimes. `[...].values().filter(...).map(...).take(...).toArray()` is now lazy natively. Section 5 (formerly Section 4) reframes `lazy.js` as a pre-2025 fallback. Thanks to [juner](https://zenn.dev/juners) for flagging this in the Zenn comments.
+
 ---
 
 In the [previous post](/blog/rust-iterator-lazy/) we proved that Rust's iterators are lazy — they process one element at a time through the entire pipeline, and stop the moment they have what they need.
@@ -179,9 +181,58 @@ The generator functions are composable and readable, but the syntax for chaining
 
 ---
 
-## 4. Lazy.js — Fluent Lazy Evaluation
+## 4. Modern JS: Iterator Helpers (ES2025)
 
-[lazy.js](https://danieltao.com/lazy.js/) wraps the generator pattern in a fluent API that looks exactly like native array methods. You don't write any generators yourself — the library handles it internally.
+The story above — that you need generators or a library for lazy chains in JavaScript — was true until recently. As of **ES2025**, the [Iterator Helpers proposal](https://github.com/tc39/proposal-iterator-helpers) reached Stage 4 and shipped. `Array.prototype.values()` returns a native [`Iterator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator) object, and `Iterator.prototype` now has lazy `.filter()`, `.map()`, `.take()`, `.drop()`, `.toArray()`, `.reduce()`, and more.
+
+```ts
+const data = Array.from({ length: 10 }, (_, i) => i + 1);
+
+const result = data
+  .values()
+  .filter(x => {
+    console.log(`  filter: ${x}`);
+    return x % 2 === 0;
+  })
+  .map(x => {
+    console.log(`  map: ${x}`);
+    return x * 10;
+  })
+  .take(3)
+  .toArray();
+
+console.log('\nresult:', result);
+```
+
+### Output
+
+```
+  filter: 1
+  filter: 2
+  map: 2
+  filter: 3
+  filter: 4
+  map: 4
+  filter: 5
+  filter: 6
+  map: 6
+
+result: [20, 40, 60]
+```
+
+Six operations, no intermediate arrays, behaviour identical to Rust. No library, no generator wrapper, no `LazySeq` class.
+
+The critical character is `.values()`. Calling `.filter()` *directly on the Array* still hits `Array.prototype.filter` — eager, the Section 1 behaviour. Hopping to `.values()` hands you a native `Iterator`, and from that point everything in the chain is `Iterator.prototype` and lazy. One method call's worth of difference, opposite semantics.
+
+**Runtime support**: Chrome 122+ (March 2024), Firefox 131+ (October 2024), Safari 18.4+ (March 2025), Node 22+. Solid on every actively-developed JavaScript engine.
+
+This collapses the headline question of the post. JS still has eager array methods *by default*, but a single `.values()` call gets you Rust-like lazy iteration natively. The gap between "lazy by default" (Rust) and "lazy on demand" (JS) is now one method call wide.
+
+---
+
+## 5. Pre-ES2025: `lazy.js` as Fallback
+
+[lazy.js](https://danieltao.com/lazy.js/) wraps the generator pattern in a fluent API that looks exactly like native array methods. It was the canonical answer before Iterator Helpers shipped, and it's still the right call if you need to support pre-2024 browsers or Node <22.
 
 ```ts
 import Lazy from 'lazy.js';
@@ -238,29 +289,32 @@ class LazySeq<T> {
 }
 ```
 
-Each adapter method returns a new `LazySeq` wrapping a generator — nothing runs yet. Only when `take()` iterates the chain does each element flow through the pipeline one at a time. You don't need to build this yourself; it's here to show why the library works the way it does.
+Each adapter method returns a new `LazySeq` wrapping a generator — nothing runs yet. Only when `take()` iterates the chain does each element flow through the pipeline one at a time. You don't need to build this yourself — neither `lazy.js` nor the native Iterator Helpers — it's here to show what's happening inside both.
 
 ---
 
-## 5. Summary: Eager vs Lazy in JS/TS
+## 6. Summary: Eager vs Lazy in JS/TS
 
-| Approach | Syntax | Lazy | No intermediate arrays |
-|---|---|---|---|
-| Native array methods | ✓ fluent | ✗ | ✗ |
-| Manual `for` loop | verbose | ✓ | ✓ |
-| Generator functions | awkward chaining | ✓ | ✓ |
-| lazy.js | ✓ fluent | ✓ | ✓ |
+| Approach | Syntax | Lazy | No intermediate arrays | Available |
+|---|---|---|---|---|
+| Native array methods | ✓ fluent | ✗ | ✗ | always |
+| Manual `for` loop | verbose | ✓ | ✓ | always |
+| Generator functions | awkward chaining | ✓ | ✓ | always |
+| **`.values()` + Iterator Helpers** | **✓ fluent** | **✓** | **✓** | **ES2025** |
+| `lazy.js` | ✓ fluent | ✓ | ✓ | always (library) |
 
-For small arrays, native methods are fine — the overhead is negligible and the readability is excellent. For large datasets where you're filtering down to a small result set, a lazy approach avoids allocating and discarding intermediate arrays.
+For small arrays, native eager array methods are fine — the overhead is negligible and the readability is excellent. For large datasets where you're filtering down to a small result set, prepend `.values()` to your chain and you're on the lazy Iterator path with no library or refactor cost. Reach for `lazy.js` only if you're stuck supporting pre-ES2025 runtimes.
 
 ---
 
 ## How This Compares to Rust
 
-In Rust, laziness is the default. Every iterator adapter is lazy out of the box — you don't need a wrapper class or generators. The compiler also collapses the entire chain into a single loop at compile time, as we showed with `cargo-show-asm` in part 1.
+In Rust, laziness is the default. Every iterator adapter is lazy out of the box — you don't need a wrapper class, generators, or a `.values()` hop. The compiler also collapses the entire chain into a single loop at compile time, as we showed with `cargo-show-asm` in part 1.
 
-In JavaScript/TypeScript, eagerness is the default and laziness requires explicit opt-in — either a manual loop, generators, or a wrapper like the `LazySeq` class above.
+In modern JavaScript, eagerness is the default *on arrays*, but laziness is a single method call away. `array.values()` returns a native `Iterator`, and from there the chain runs on `Iterator.prototype` — lazy, no intermediate arrays, behaviour identical to Rust. The gap that this post was originally written to describe — "JS has no native lazy iterators" — closed when Iterator Helpers shipped in ES2025.
 
-Neither is wrong — they reflect different design priorities. Knowing the difference lets you pick the right tool.
+Two real differences remain. First, JS still defaults to eager when you call `.filter()` directly on an Array; you opt into laziness with `.values()`. Rust never has that choice — it's iterators all the way down. Second, Rust's compiler can collapse the chain into a single loop with no allocation; JS engines still pay for the Iterator object per chain. The *semantic* gap is closed. The *cost-model* gap is narrower than it was, but not zero.
+
+The practical takeaway: if you reach for `.filter().map().take()` on a large array in modern JS, prepend `.values()`. You'll thank yourself the first time the array has a million elements.
 
 ::callout{product="kurippa"}
