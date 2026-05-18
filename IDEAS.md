@@ -54,6 +54,32 @@ Append-only notebook. One-liner → eventually promoted to a draft post in
 - [ ] **Aside: where lazy hurts** — repeated iteration of a generator
       vs an array, surprising re-execution costs, when to materialize.
 
+## TC39 / ES202x — measurement-led "before / after" posts
+
+Stage 4 proposals that ship with a concrete win over the previous
+userland workaround. Same aesthetic as the lazy-iterators series:
+show the old way, show the new way, run a benchmark, log the calls.
+
+- [ ] **Set methods: `intersection` / `union` / `difference` / `isSubsetOf`**
+      (Stage 4, ES2025). The pre-2025 workaround
+      `[...new Set(a)].filter(x => new Set(b).has(x))` is O(n·m) and
+      most posts get it wrong. Native versions are O(n+m). Benchmark
+      both at N = 100 / 10k / 1M; show the crossover. Cross-language
+      nod to Rust's `HashSet` ops at the end. **Strongest candidate.**
+- [ ] **`Object.groupBy` and `Map.groupBy`** (Stage 4, ES2024). "I
+      needed lodash for this" was the canonical case for a decade —
+      now native. Show your old hand-rolled implementation, show
+      `Object.groupBy(data, x => x.category)`, benchmark vs lodash's
+      `_.groupBy`. Story: the function you've been hand-rolling since
+      2010, finally in the language.
+- [ ] **`Promise.try`** (Stage 4, ES2025). Smaller scope, ~500 words.
+      Wrapping potentially-sync-throwing code in a Promise chain has
+      always been a footgun. Show the three broken pre-2025
+      approaches (`Promise.resolve().then(fn)`, `new Promise(...)`,
+      `async () => fn()`) and explain why `Promise.try(fn)` is the
+      only one that correctly captures both sync throws and async
+      rejections. Short, focused post.
+
 ## Cross-language micro-benchmarks (lazy-iterators-style, planable)
 
 - [ ] **String interning costs across Rust / JS / Python** — same
@@ -146,11 +172,87 @@ or rewrite the hook.
 
 ## Power-user / how-to (TIPS category)
 
+These are SEO-shaped posts. The primary acquisition channel is Google
+search ("how to X on mac"); Reddit is a distant secondary. Each entry
+below targets a real search query — verify intent with autocomplete
+before drafting.
+
 - [ ] **macOS Accessibility & Input Monitoring permission prompts — when
       they actually fire, how to debug "Step 2 never appears"** —
       lessons from Kurippa's permission flow.
 - [ ] **Cmd+Shift+L: setting up vault quick-search from anywhere on
       macOS** — Vaultz overlay walkthrough.
+
+### Kurippa / clipboard topics
+
+- [ ] **How to clear your clipboard history on Mac (and why you
+      should)** — privacy angle, then natural pivot to "if you want
+      history at all, here's how." Targets `clear clipboard history mac`.
+- [ ] **Copy multiple things at once on Mac and paste them in order**
+      — Kurippa's `⌘0`-`⌘9` nth-most-recent feature is the answer.
+      Targets `copy multiple items mac` / `paste in order clipboard`.
+- [ ] **How to paste plain text without formatting on Mac (3 ways)**
+      — the system shortcut, the trick most apps don't support, and
+      Kurippa's Paste As menu. Generic top of funnel, brand at the end.
+- [ ] **How to find a URL (or anything) you copied 2 hours ago on Mac**
+      — narrative reframe of the "macOS has no clipboard history" post,
+      but framed around the URL use case specifically. Different SEO
+      surface from the existing post.
+- [ ] **Convert a hex colour to RGB without leaving your editor** —
+      Kurippa's Paste As → colour conversion. Niche but high intent
+      among designers and frontend devs.
+- [ ] **Cmd+Shift+V vs Cmd+V on Mac — what's the difference, when to
+      use which** — explainer that earns trust, then naturally
+      escalates to "but if you want this everywhere, you need a
+      clipboard manager."
+
+### Vaultz / password-manager topics
+
+- [ ] **Why I left 1Password (and what I switched to)** — comparison
+      post, story-driven. High conversion intent for searchers
+      actively shopping. Be honest about what 1P does better.
+- [ ] **Local-first password management on macOS in 2026** — the case
+      against cloud-synced password managers, then Vaultz as the
+      answer. Privacy/sovereignty angle.
+- [ ] **How to switch password managers without breaking anything** —
+      step-by-step export/import flow, with Vaultz as the example
+      target. Useful even to people who don't end up using Vaultz —
+      that's the point; rank for the query.
+- [ ] **Audit your saved passwords for breaches without uploading them
+      anywhere** — privacy-preserving breach-check approach (HIBP
+      k-anonymity API explained). Showcase Vaultz's offline-first
+      stance.
+- [ ] **The case for a Mac-only password manager** — counter-narrative
+      to "must work everywhere." Useful if you mostly live on macOS.
+- [ ] **Cmd+Shift+L: opening your vault from anywhere on macOS** —
+      Vaultz overlay walkthrough (already listed above; keeping it
+      here for cross-reference).
+- [ ] **Switching from browser-saved passwords to a proper password
+      manager** — beginner-friendly migration guide. Different
+      audience from the "left 1Password" post.
+
+### Studio-level / cross-product
+
+- [ ] **My Mac productivity stack 2026: a keyboard-first workflow** —
+      brand-building post. Names Kurippa + Vaultz as part of a wider
+      stack. Builds trust by naming tools you didn't make.
+- [ ] **Why I prefer one-time-purchase apps over subscriptions (and
+      five I actually use)** — values-driven post, fits the
+      no-subscription brand. Names Kurippa + Vaultz alongside other
+      indie Mac apps.
+
+### Channel notes (TIPS specifically)
+
+- Primary: Google organic. Optimise titles for the exact query.
+- Reddit `/r/MacApps`, `/r/macOSproductivity`: be a regular, answer
+  questions, link to your post only when it's the genuine answer.
+  Don't cross-post wholesale; subreddits hate it.
+- X/Twitter: thread-summarise each post on publish.
+- HN: only submit if the angle is strong (contrarian, original
+  benchmark, hot-take). Most TIPS posts won't fit HN.
+- AlternativeTo, Product Hunt: product listings, not blog distribution.
+- Mac newsletter outreach (MacStories, Initial Charge): pitch the
+  product, not the blog. Blog is the supporting content.
 
 ## Postmortems / fix-it stories (low planning cost, high engagement)
 
